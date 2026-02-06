@@ -1,0 +1,41 @@
+
+/* Google-ish color palette and clean spacing */
+:root{
+	--bg:#ffffff;
+	--surface:#ffffff;
+	--text:#202124;
+	--muted:#5f6368;
+	--blue:#1a73e8;
+	--red:#ea4335;
+	--yellow:#fbbc05;
+	--green:#34a853;
+}
+
+*{box-sizing:border-box}
+body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial,Helvetica,sans-serif;margin:0;color:var(--text);background:var(--bg);-webkit-font-smoothing:antialiased}
+.container{max-width:1000px;margin:0 auto;padding:28px}
+
+.hero{background:linear-gradient(90deg, rgba(26,115,232,0.06), rgba(52,168,83,0.02));padding:48px 0;border-bottom:1px solid rgba(60,64,67,0.06)}
+.hero-inner{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.hero-left{display:flex;align-items:center;gap:18px}
+.avatar{width:96px;height:96px;border-radius:12px;object-fit:cover;background:#fff;border:1px solid rgba(60,64,67,0.06)}
+.hero-meta h1{margin:0;font-size:28px;font-weight:600}
+.tagline{color:var(--muted);margin:6px 0 8px}
+.links-muted a{color:var(--muted);text-decoration:none;margin-right:8px}
+
+.hero-cta{display:flex;gap:12px}
+.btn-primary{background:var(--blue);color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:600}
+.btn-ghost{background:transparent;color:var(--text);padding:10px 12px;border-radius:8px;border:1px solid rgba(60,64,67,0.06);text-decoration:none}
+
+h2{font-size:20px;margin-top:28px;margin-bottom:12px}
+.projects-grid{display:grid;grid-template-columns:1fr;gap:12px}
+.project{padding:18px;border-radius:10px;background:var(--surface);box-shadow:0 1px 0 rgba(60,64,67,0.04);border:1px solid rgba(60,64,67,0.03);text-decoration:none;color:inherit}
+.project h3{margin:0 0 6px;font-size:16px}
+.project .muted{color:var(--muted);font-size:13px;margin-bottom:8px}
+.project .desc{color:var(--muted);font-size:14px}
+.placeholder{color:var(--muted);padding:18px}
+
+.site-footer{border-top:1px solid rgba(60,64,67,0.06);padding:20px;text-align:center;color:var(--muted);margin-top:40px}
+
+@media(min-width:760px){.projects-grid{grid-template-columns:repeat(2,1fr)}.avatar{width:116px;height:116px}}
+

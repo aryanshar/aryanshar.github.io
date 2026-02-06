@@ -1,18 +1,91 @@
----
-layout: default
----
-
-<div class="posts">
-  {% for post in site.posts %}
-    <article class="post">
-
-      <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
-
-      <div class="entry">
-        {{ post.excerpt }}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aryan Sharma — AI/ML Engineer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+  </head>
+  <body>
+    <header class="hero">
+      <div class="container hero-inner">
+        <div class="hero-left">
+          <img class="avatar" src="/images/avatar.png" alt="Aryan Sharma">
+          <div class="hero-meta">
+            <h1>Aryan Sharma</h1>
+            <p class="tagline">Senior AI/ML Engineer — ML research, production ML, and MLOps</p>
+            <p class="links-muted"><a href="https://github.com/aryanshar" target="_blank">GitHub</a> · <a href="https://www.linkedin.com/in/aryansharma97/" target="_blank">LinkedIn</a> · <a href="/assets/resume.pdf">Resume</a></p>
+          </div>
+        </div>
+        <nav class="hero-cta">
+          <a class="btn-primary" href="#projects">See projects</a>
+          <a class="btn-ghost" href="#contact">Contact</a>
+        </nav>
       </div>
+    </header>
 
-      <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
-    </article>
-  {% endfor %}
-</div>
+    <main class="container">
+      <section id="projects">
+        <h2>Selected Projects</h2>
+        <div id="projects-list" class="projects-grid">
+          <!-- Projects pulled from GitHub will be injected here -->
+          <div class="project placeholder">Loading projects…</div>
+        </div>
+      </section>
+
+      <section id="blog">
+        <h2>Latest Posts</h2>
+        <article class="post">
+          <h3>Building production-ready deep learning pipelines</h3>
+          <p>Practical steps for taking models from research to production: versioning, CI/CD, monitoring, and serving.</p>
+        </article>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:aryan.sharma575@gmail.com">aryan.sharma575@gmail.com</a></p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">© Aryan Sharma</div>
+    </footer>
+    <script>
+    // Client-side GitHub projects fetch (change `GITHUB_USER` if needed)
+    const GITHUB_USER = 'aryanshar';
+
+    async function loadProjects() {
+      const list = document.getElementById('projects-list');
+      try {
+        const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=100`);
+        if (!res.ok) throw new Error('GitHub API error');
+        const repos = await res.json();
+        const filtered = repos
+          .filter(r => !r.fork)
+          .sort((a,b)=>b.stargazers_count - a.stargazers_count)
+          .slice(0,8);
+
+        if (filtered.length === 0) {
+          list.innerHTML = '<div class="project placeholder">No public projects found.</div>';
+          return;
+        }
+
+        list.innerHTML = filtered.map(r => `
+          <a class="project" href="${r.html_url}" target="_blank">
+            <h3>${r.name}</h3>
+            <p class="muted">${r.language || ''} · ★ ${r.stargazers_count}</p>
+            <p class="desc">${(r.description||'').slice(0,160)}</p>
+          </a>
+        `).join('');
+
+      } catch (err) {
+        list.innerHTML = '<div class="project placeholder">Failed to load projects.</div>';
+        console.error(err);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadProjects);
+    </script>
+  </body>
+</html>
