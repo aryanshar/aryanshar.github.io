@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Next Rung — Prep Tracker</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Next Rung">
+<meta name="theme-color" content="#14181f">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACr0lEQVR4nO3csW0UQRiAUYwgIkJy4MwZFVAGogHntODAhBDQgnMasFwGFbgJR45IyBABn7R7M6u7W70X3/4z0nyau2Tv4vLq+hX8z+tjb4DTJQ6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEhvjr0B1vny4cfI4/dPt8s/7OY4J4NlrJ0gjrMxXsbaOeI4D7PKWDVNHCRxkMRBEgdJHCRxkMRBEgdJHCRxkMRBEgdJHCRxkMRBEgdJHCRxkMRBEgdJHCRxkLzxNuT9558jjz8/3MzayRbcHIcbLGPKhE2J40CzzvWU+xDHIeae6Mn2IQ6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEi7euPt3fdPI4+/3D3O2sk+7OfmGCxjyoSd2Ukcs85VH//aQxxzT1Qff+0hDjYiDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDtKGb7z9+vp75PGP397O2gmH2ermGCxjygQGbRLHrHPVx3HNj2PuierjiPwgJYmDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDND+Ouf8CuGTay93jxBWXTHt+uJm44pJp90+3E1dcOG2Tm2NWH8vnzOpj+ZxZfSyfM6uP5XO2+loZ72PthPE+1k4Y72PthPE+Vk24uLy6HlyPvfKDlCQOkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iD9ATDUVgX+3eClAAAAAElFTkSuQmCC">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAACr0lEQVR4nO3csW0UQRiAUYwgIkJy4MwZFVAGogHntODAhBDQgnMasFwGFbgJR45IyBABn7R7M6u7W70X3/4z0nyau2Tv4vLq+hX8z+tjb4DTJQ6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEhvjr0B1vny4cfI4/dPt8s/7OY4J4NlrJ0gjrMxXsbaOeI4D7PKWDVNHCRxkMRBEgdJHCRxkMRBEgdJHCRxkMRBEgdJHCRxkMRBEgdJHCRxkMRBEgdJHCRxkLzxNuT9558jjz8/3MzayRbcHIcbLGPKhE2J40CzzvWU+xDHIeae6Mn2IQ6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEi7euPt3fdPI4+/3D3O2sk+7OfmGCxjyoSd2Ukcs85VH//aQxxzT1Qff+0hDjYiDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDpI4SOIgiYMkDtKGb7z9+vp75PGP397O2gmH2ermGCxjygQGbRLHrHPVx3HNj2PuierjiPwgJYmDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDJA6SOEjiIImDND+Ouf8CuGTay93jxBWXTHt+uJm44pJp90+3E1dcOG2Tm2NWH8vnzOpj+ZxZfSyfM6uP5XO2+loZ72PthPE+1k4Y72PthPE+Vk24uLy6HlyPvfKDlCQOkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iCJgyQOkjhI4iD9ATDUVgX+3eClAAAAAElFTkSuQmCC">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14181f; --paper:#ffffff; --muted:#6b7280; --hair:#e7e9ee; --hair2:#f1f3f6;
+    --signal:#e0432b;
+    --p1:#e0941a; --p2:#1f9d6b; --p3:#2566c4; --p4:#7a3ea8;
+    --accent:var(--p1);
+    --disp:'Space Grotesk',system-ui,sans-serif;
+    --body:'Inter',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{font-family:var(--body);color:var(--ink);background:#eceef1;line-height:1.45}
+  .app{max-width:500px;margin:0 auto;min-height:100vh;background:var(--paper);position:relative;padding-bottom:78px}
+
+  /* header */
+  header{
+    position:sticky;top:0;z-index:20;background:var(--ink);color:#fff;
+    padding:14px 18px 13px;
+  }
+  .hrow{display:flex;justify-content:space-between;align-items:center}
+  header .title{font-family:var(--disp);font-weight:700;font-size:16px;letter-spacing:-.01em}
+  header .title .dot{color:var(--accent)}
+  .streak{font-family:var(--mono);font-size:12px;display:flex;align-items:center;gap:5px;font-weight:600}
+  .streak .fl{font-size:14px}
+  .phasepill{
+    margin-top:9px;display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;
+    background:rgba(255,255,255,.1);padding:4px 10px;border-radius:20px;
+  }
+  .phasepill b{color:var(--accent);font-weight:600}
+  .phasepill .sep{opacity:.4}
+
+  /* tabs */
+  .tabs{display:flex;background:var(--ink);padding:0 10px}
+  .tab{
+    flex:1;text-align:center;padding:11px 0 12px;color:rgba(255,255,255,.55);
+    font-family:var(--mono);font-size:11px;letter-spacing:.12em;font-weight:600;
+    border-bottom:2.5px solid transparent;cursor:pointer;text-transform:uppercase;
+  }
+  .tab.on{color:#fff;border-bottom-color:var(--accent)}
+
+  /* views */
+  .view{display:none;padding:18px}
+  .view.on{display:block}
+
+  /* TODAY */
+  .todayhead{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px}
+  .daybig{font-family:var(--disp);font-weight:700;font-size:25px;letter-spacing:-.02em;line-height:1.05}
+  .daysub{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.03em}
+  .daytype{
+    font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:#fff;background:var(--accent);padding:3px 9px;border-radius:3px;font-weight:600;white-space:nowrap;
+  }
+  .ring{display:flex;align-items:center;gap:13px;margin:15px 0 20px;
+    background:var(--hair2);border-radius:14px;padding:13px 15px}
+  .ring svg{flex:0 0 auto}
+  .ring .rtext .big{font-family:var(--disp);font-weight:700;font-size:17px}
+  .ring .rtext .sm{font-size:11.5px;color:var(--muted);margin-top:1px}
+
+  .pillar{margin-bottom:11px}
+  .plabel{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:18px 0 9px}
+  .task{
+    display:flex;gap:12px;align-items:flex-start;border:1.5px solid var(--hair);
+    border-radius:12px;padding:12px 13px;margin-bottom:9px;cursor:pointer;
+    transition:border-color .15s,background .15s;background:#fff;
+  }
+  .task:active{background:var(--hair2)}
+  .task.done{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 7%,#fff)}
+  .check{
+    flex:0 0 auto;width:24px;height:24px;border-radius:7px;border:2px solid var(--hair);
+    display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .15s;
+  }
+  .task.done .check{background:var(--accent);border-color:var(--accent)}
+  .check svg{opacity:0;transition:opacity .15s}
+  .task.done .check svg{opacity:1}
+  .tbody{flex:1;min-width:0}
+  .tmain{font-size:13.5px;font-weight:600;line-height:1.32}
+  .tmain .ic{margin-right:6px}
+  .tdetail{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.4}
+  .tsource{font-family:var(--mono);font-size:10px;color:var(--accent);margin-top:5px;font-weight:500;word-break:break-word}
+  .tsource b{color:var(--ink)}
+  .ttime{font-family:var(--mono);font-size:9.5px;color:var(--muted);float:right;margin-left:8px}
+
+  .overflow{
+    border:1.5px dashed var(--signal);border-radius:12px;padding:12px 14px;margin:6px 0 4px;
+    display:flex;gap:11px;align-items:flex-start;
+  }
+  .overflow .ob{font-family:var(--disp);font-weight:700;color:var(--signal);font-size:14px}
+  .overflow p{font-size:11.5px;line-height:1.45;color:var(--ink)}
+  .overflow b{color:var(--signal)}
+
+  .note{margin-top:16px}
+  .note textarea{
+    width:100%;border:1.5px solid var(--hair);border-radius:12px;padding:11px 13px;
+    font-family:var(--body);font-size:13px;resize:vertical;min-height:54px;color:var(--ink);
+  }
+  .note textarea:focus{outline:none;border-color:var(--accent)}
+  .note .nl{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:8px}
+
+  /* setup / not-started */
+  .setup{padding:22px 8px;text-align:center}
+  .setup h2{font-family:var(--disp);font-size:19px;margin-bottom:8px}
+  .setup p{font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.5}
+  .setup input[type=date]{
+    font-family:var(--mono);font-size:14px;padding:10px 14px;border:1.5px solid var(--ink);
+    border-radius:10px;margin-bottom:14px;width:100%;max-width:240px;
+  }
+  .btn{
+    background:var(--ink);color:#fff;border:none;font-family:var(--mono);font-size:12px;
+    letter-spacing:.08em;font-weight:600;padding:12px 22px;border-radius:10px;cursor:pointer;
+    text-transform:uppercase;
+  }
+  .btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--hair)}
+
+  /* WEEK */
+  .wkhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .wkhead .wt{font-family:var(--disp);font-weight:700;font-size:21px;letter-spacing:-.01em}
+  .wkhead .wp{font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:#fff;padding:4px 10px;border-radius:20px}
+  .applybar{
+    background:color-mix(in srgb,var(--signal) 9%,#fff);border:1.5px solid color-mix(in srgb,var(--signal) 35%,#fff);
+    border-radius:11px;padding:11px 13px;margin-bottom:14px;display:flex;gap:10px;align-items:center;
+  }
+  .applybar .ab{font-family:var(--mono);font-weight:700;font-size:10px;letter-spacing:.06em;color:#fff;background:var(--signal);padding:3px 8px;border-radius:4px;flex:0 0 auto}
+  .applybar p{font-size:12px;line-height:1.4}
+  .applybar b{color:var(--signal)}
+  .wtrack{border-top:1px solid var(--hair);padding:10px 0}
+  .wtrack:first-of-type{border-top:none}
+  .wtrack .k{font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:7px}
+  .wtrack .k .pip{width:8px;height:8px;border-radius:2px}
+  .wtrack .v{font-size:13px;font-weight:500;margin-top:4px;line-height:1.4}
+  .wtrack .s{font-family:var(--mono);font-size:10px;color:var(--accent);margin-top:3px;word-break:break-word}
+  .wtrack .s b{color:var(--ink)}
+  .weekdots{display:flex;gap:6px;margin:4px 0 18px;justify-content:space-between}
+  .wd{flex:1;text-align:center}
+  .wd .lab{font-family:var(--mono);font-size:9px;color:var(--muted);margin-bottom:4px}
+  .wd .cell{height:30px;border-radius:7px;background:var(--hair2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--muted)}
+  .wd .cell.done{background:var(--accent);color:#fff;font-weight:600}
+  .wd .cell.today{box-shadow:0 0 0 2px var(--ink)}
+
+  /* MAP */
+  .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:20px}
+  .stat{border:1.5px solid var(--hair);border-radius:12px;padding:12px 8px;text-align:center}
+  .stat .num{font-family:var(--disp);font-weight:700;font-size:24px;line-height:1}
+  .stat .lab{font-family:var(--mono);font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+  .ramp{display:grid;grid-template-columns:repeat(12,1fr);align-items:end;gap:3px;height:74px;border-bottom:2px solid var(--ink);margin:6px 0 5px}
+  .ramp .col{height:100%;display:flex;flex-direction:column;justify-content:flex-end;position:relative}
+  .ramp .bar{width:100%;border-radius:2px 2px 0 0;opacity:.4}
+  .ramp .col.cur .bar{opacity:1;outline:2px solid var(--ink);outline-offset:1px}
+  .ramp .wn{position:absolute;top:-13px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:7.5px;color:var(--muted)}
+  .phlabels{display:grid;grid-template-columns:2fr 4fr 3fr 3fr;gap:3px;margin-bottom:20px}
+  .phlabels .ph{font-family:var(--mono);font-size:8px;letter-spacing:.06em;text-transform:uppercase;color:#fff;padding:3px 6px;font-weight:600;text-align:center}
+  .mlabel{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:6px 0 11px}
+  .mile{display:flex;gap:11px;align-items:flex-start;padding:9px 0;border-top:1px solid var(--hair2);cursor:pointer}
+  .mile .mc{flex:0 0 auto;width:20px;height:20px;border-radius:6px;border:2px solid var(--hair);display:flex;align-items:center;justify-content:center;margin-top:1px}
+  .mile.done .mc{background:var(--p2);border-color:var(--p2)}
+  .mile .mc svg{opacity:0}
+  .mile.done .mc svg{opacity:1}
+  .mile .mt{font-size:12.5px;line-height:1.4}
+  .mile .mw{font-family:var(--mono);font-size:9.5px;color:var(--signal);font-weight:600;margin-right:6px}
+  .mile.done .mt{color:var(--muted);text-decoration:line-through}
+  .resetrow{margin-top:22px;display:flex;gap:10px;justify-content:center}
+  .small{font-size:10px;color:var(--muted);text-align:center;margin-top:14px;font-family:var(--mono);line-height:1.6}
+
+  .reminder{background:var(--hair2);border-radius:11px;padding:12px 14px;margin-top:16px;font-size:12px;line-height:1.5;color:var(--ink)}
+  .reminder b{font-weight:600}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="hrow">
+      <div class="title">Operation Next Rung<span class="dot">.</span></div>
+      <div class="streak"><span class="fl">🔥</span><span id="streakNum">0</span></div>
+    </div>
+    <div class="phasepill" id="phasePill"><b>—</b></div>
+  </header>
+
+  <div class="tabs">
+    <div class="tab on" data-v="today">Today</div>
+    <div class="tab" data-v="week">Week</div>
+    <div class="tab" data-v="map">Map</div>
+  </div>
+
+  <div class="view on" id="view-today"></div>
+  <div class="view" id="view-week"></div>
+  <div class="view" id="view-map"></div>
+</div>
+
+<script>
+/* ---------------- curriculum data ---------------- */
+const PIP = {dsa:'#2566c4', sys:'#7a3ea8', llm:'#1f9d6b', code:'#14181f', fund:'#e0941a', story:'#e0432b'};
+const PHASE = w => w<=2?{n:1,name:'Foundation',c:'var(--p1)',hex:'#e0941a'}:w<=6?{n:2,name:'Build',c:'var(--p2)',hex:'#1f9d6b'}:w<=9?{n:3,name:'Depth',c:'var(--p3)',hex:'#2566c4'}:{n:4,name:'Peak',c:'var(--p4)',hex:'#7a3ea8'};
+
+const W = {
+ 1:{dsa:['Arrays & Hashing — easies, rust-off','NeetCode › Arrays & Hashing (9 problems)'],
+    sys:['7-step framework + warm-up: design image dedup / curation (your own system)','Aminian & Xu ch 1–2'],
+    llm:['Transformer I — self-attention, Q/K/V, multi-head, why attention','Illustrated Transformer → Karpathy “Let’s build GPT” (1st half)'],
+    code:['K-means + KNN from scratch (numpy)','github/eriklindernoren ML-From-Scratch (ref)'],
+    fund:['Bias-variance, over/underfit, L1/L2 regularization, cross-validation','ISLR ch 2,5,6 + StatQuest'],
+    story:['Deep-dive #1: Scene Search — problem, alternatives, tradeoffs, metrics, learnings','write 1–2 pages + finish CV (both variants)']},
+ 2:{dsa:['Two Pointers + Sliding Window','NeetCode › Two Pointers + Sliding Window'],
+    sys:['Recommendation system — candidate gen + ranking, embeddings, cold start','Aminian & Xu — recsys chapter'],
+    llm:['Transformer II — positional enc (RoPE/ALiBi), layer-norm, residuals','Karpathy (2nd half) + Lilian Weng “Transformer Family v2”'],
+    code:['Linear & logistic regression with gradient descent (numpy)','ML-From-Scratch (ref)'],
+    fund:['Optimization — GD/SGD/momentum/Adam, LR schedules, loss functions','d2l.ai ch 11 + Géron ch 4 + 3B1B'],
+    story:['Deep-dive #2: Lane / perception pipeline (same structure)','write it down']},
+ 3:{dsa:['Stack + Binary Search','NeetCode › Stack + Binary Search'],
+    sys:['Search & ranking / visual search (maps to your scene-search)','Aminian & Xu — search / visual-search chapters'],
+    llm:['Tokenization — BPE, WordPiece, SentencePiece + Indic inefficiency (Sarvam)','Karpathy “Let’s build the GPT Tokenizer” + Raschka ch 2'],
+    code:['MLP + backprop by hand (numpy)','Karpathy micrograd'],
+    fund:['Metrics — precision/recall/F1, ROC-AUC, PR, calibration; imbalanced data','Géron ch 3 + StatQuest (ROC/AUC)'],
+    story:['Deep-dive #3: MLOps / EKS / autoscale / Step-Functions pipeline','write it down']},
+ 4:{dsa:['Linked List + Tree traversals','NeetCode › Linked List + Trees (pt 1)'],
+    sys:['Feature stores & data/training pipelines — batch vs streaming, leakage','Huyen DMLS ch 4–5'],
+    llm:['Pretraining — causal vs masked LM, scaling laws (Chinchilla)','Raschka ch 5 + Chinchilla summary'],
+    code:['PyTorch training loop — Dataset, DataLoader, train/val, checkpoint','PyTorch tutorials + d2l'],
+    fund:['Trees & ensembles — RF, bagging vs boosting, XGBoost','ISLR ch 8 + Géron ch 6–7 + StatQuest'],
+    story:['“Why leave JLR / why them” + 90-sec career narrative (honest, non-defensive)','script + rehearse']},
+ 5:{dsa:['Trees (BST, BFS/DFS) + Heaps / Priority Queue','NeetCode › Trees (pt 2) + Heap'],
+    sys:['Model serving — batch vs online, latency/throughput, autoscaling (your EKS work)','Huyen DMLS ch 7 + your infra'],
+    llm:['Fine-tuning & PEFT — full FT vs LoRA / QLoRA; rank, alpha, target modules','Raschka ch 6–7 + appendix + HF PEFT docs'],
+    code:['Self-attention + a tiny transformer block (PyTorch)','Karpathy nanoGPT + Raschka ch 3–4'],
+    fund:['Clustering (K-means, GMM, DBSCAN) + dim reduction (PCA, t-SNE, UMAP)','ISLR ch 12 + Géron ch 8–9'],
+    story:['STAR set A — biggest conflict, biggest failure, hardest technical decision','3 stories, STAR format']},
+ 6:{dsa:['Backtracking + Tries','NeetCode › Backtracking + Tries'],
+    sys:['Distributed training infra — data/model/pipeline parallelism, Ray (your work)','HF Ultra-Scale Playbook + Megatron/DeepSpeed (skim)'],
+    llm:['Post-training / alignment — SFT, RLHF (reward + PPO), DPO, RLAIF (conceptual)','HF “Illustrated RLHF” + Lilian Weng “RLHF”'],
+    code:['BPE tokenizer','Karpathy minbpe'],
+    fund:['DL core — backprop, activations, init (Xavier/He), batch/layer norm, dropout','d2l.ai ch 5–8 + 3B1B'],
+    story:['STAR set B — impact, ambiguity, disagreeing with a lead, tight deadline','4 stories, STAR format']},
+ 7:{dsa:['Graphs — BFS/DFS, topo sort (Course Schedule, islands, Pacific-Atlantic)','NeetCode › Graphs'],
+    sys:['LLM serving system — vLLM, batching, KV cache, multi-GPU, cost','Generative AI Sys Design Interview + vLLM docs'],
+    llm:['Inference opt I — KV cache, quantization (GPTQ/AWQ/GGUF), FlashAttention','Lilian Weng “Inference Optimization” + FlashAttn (skim)'],
+    code:['LoRA fine-tune a small model (HF PEFT) — point your hobby hardware at this','HF PEFT examples'],
+    fund:['CNN recap (conv, pooling) + sequence models (RNN/LSTM/GRU) — brief','CS231n notes + d2l ch 9–10'],
+    story:['Rehearse stories out loud + record yourself · do a mock behavioral','peer / Pramp / interviewing.io']},
+ 8:{dsa:['Advanced Graphs (union-find, Dijkstra, MST) + Intervals','NeetCode › Adv. Graphs + Intervals'],
+    sys:['RAG system at scale — vector DB, retrieval freshness, hybrid search, eval','Gen-AI Sys Design Interview + Huyen AI Eng'],
+    llm:['Inference opt II — continuous batching, PagedAttention/vLLM, speculative decoding','vLLM docs + PagedAttention paper'],
+    code:['Tiny RAG — embeddings + FAISS + retrieval loop','sentence-transformers docs'],
+    fund:['Spaced revision — weakest fundamentals topics; build Anki cards','your notes'],
+    story:['Iterate stories from warm-up interview feedback','refine']},
+ 9:{dsa:['1-D Dynamic Programming (House Robber, Coin Change, Word Break, LIS)','NeetCode › 1-D DP'],
+    sys:['Agentic system / LLM pipeline orchestration — tool use, planning, memory','Gen-AI Sys Design Interview + Huyen AI Eng'],
+    llm:['Architecture variants — MoE (Sarvam), GQA/MQA, long-context, Mamba (aware)','HF MoE blog + GQA summary'],
+    code:['Eval harness — precision@k, MRR, retrieval metrics','implement'],
+    fund:['Spaced revision — round 2 weak spots','Anki'],
+    story:['Full mock loops (technical + behavioral)','peer / platform']},
+ 10:{dsa:['2-D DP (LCS, Edit Distance, Coin Change II) + Greedy (Jump Game, Gas Station)','NeetCode › 2-D DP + Greedy'],
+    sys:['Monitoring, drift, A/B testing, online eval, continual learning','Huyen DMLS ch 8–9'],
+    llm:['RAG deep + agents (ReAct, tools) — consolidation','Huyen “AI Engineering” RAG + agents'],
+    code:['Redo weakest implementations, timed','your repo (make it public)'],
+    fund:['Review','notes'],
+    story:['Behavioral polish — tighten to crisp 2–3 min answers','rehearse']},
+ 11:{dsa:['Mixed mediums in timed pairs (2 in 45 min); patch weak patterns','NeetCode / LeetCode timed'],
+    sys:['Full mock system-design cases, end-to-end','Aminian & Xu cases'],
+    llm:['LLM eval & observability — benchmarks, LLM-as-judge, hallucination, guardrails','Huyen AI Eng eval ch + Eugene Yan'],
+    code:['Mixed, timed; whiteboard attention/a loss live','your repo'],
+    fund:['Review','notes'],
+    story:['Full-loop mocks with a peer','Pramp / interviewing.io']},
+ 12:{dsa:['Company-tagged sets for your targets + sampled hards','LeetCode company tags'],
+    sys:['Refine narratives, company-specific framing','your deep-dive doc'],
+    llm:['Consolidation + company-specific (Indic / MoE for Sarvam)','target company tech reports/blogs'],
+    code:['Mixed practice','your repo'],
+    fund:['Light review','notes'],
+    story:['Final mocks · negotiation prep','—']}
+};
+
+const APPLY = {7:'Open WARM-UP window — apply to 2–3 mid-tier companies. These are interview reps, NOT your dream shots.',
+               9:'Comfortable with mediums + 120+ DSA → open TIER-2 targets.',
+               10:'Open TOP TARGETS — Sarvam, Krutrim, top GCCs. You’re sharp from the warm-up reps now.'};
+
+const MILES = [
+ {id:'m2', wk:'W2', t:'CV done (both variants) · deep-dive doc started · DSA rust off'},
+ {id:'m4', wk:'W4', t:'40+ DSA done · transformer internals solid · 1 sys-design framework fluent'},
+ {id:'m6', wk:'W6', t:'4 sys-design cases · 80+ DSA · all behavioral stories drafted'},
+ {id:'m7', wk:'W7', t:'▶ Applying to warm-up companies', apply:true},
+ {id:'m9', wk:'W9', t:'Comfortable w/ mediums · 120+ DSA · ▶ applying to tier-2', apply:true},
+ {id:'m10',wk:'W10',t:'▶ Applying to TOP TARGETS (Sarvam / Krutrim / GCCs)', apply:true},
+ {id:'m12',wk:'W12',t:'Top-target loops in flight · negotiating from strength'}
+];
+
+const DAYKIND = { // 0=Sun..6=Sat
+ 1:{name:'Code + Systems', tracks:['dsa','sys'], times:['45m','75m']},
+ 2:{name:'Code + Models',  tracks:['dsa','llm'], times:['45m','75m']},
+ 3:{name:'Code + Build',   tracks:['dsa','code'],times:['45m','75m']},
+ 4:{name:'Code + Theory',  tracks:['dsa','fund'],times:['45m','75m']},
+ 5:{name:'Code + Story',   tracks:['dsa','story'],times:['45m','75m']},
+ 6:{name:'Deep Work',      tracks:['SAT'], times:[]},
+ 0:{name:'Deep Work + Review',tracks:['SUN'],times:[]}
+};
+const TRACKMETA = {dsa:{ic:'⌨️',lab:'DSA'},sys:{ic:'🏗️',lab:'ML System Design'},llm:{ic:'🧠',lab:'LLMs & Architectures'},code:{ic:'🔧',lab:'ML Coding'},fund:{ic:'📐',lab:'ML Fundamentals'},story:{ic:'🎤',lab:'Behavioral / Project'}};
+
+/* ---------------- state + storage ---------------- */
+const KEY='nextrung_tracker_v1';
+let S={startDate:null, log:{}, miles:[]};
+let persistMode='memory';   // 'claude' | 'local' | 'memory'
+let saveT=null;
+
+function detectPersist(){
+  if(window.storage&&window.storage.get&&window.storage.set){persistMode='claude';return;}
+  try{localStorage.setItem('__nr_t','1');localStorage.removeItem('__nr_t');persistMode='local';}catch(e){persistMode='memory';}
+}
+async function rawGet(){
+  if(persistMode==='claude'){ try{const r=await window.storage.get(KEY,false); return (r&&typeof r.value!=='undefined')?r.value:null;}catch(e){} }
+  if(persistMode==='local'){ try{return localStorage.getItem(KEY);}catch(e){} }
+  return null;
+}
+async function rawSet(val){
+  if(persistMode==='claude'){ try{await window.storage.set(KEY,val,false);return true;}catch(e){} }
+  if(persistMode==='local'){ try{localStorage.setItem(KEY,val);return true;}catch(e){} }
+  return false;
+}
+async function load(){ try{const v=await rawGet(); if(v){S=JSON.parse(v);}}catch(e){} }
+function save(){ if(saveT)clearTimeout(saveT); saveT=setTimeout(()=>{rawSet(JSON.stringify(S));},180); }
+
+/* ---------------- date helpers ---------------- */
+const DAYNAMES=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+function fmt(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function parse(s){const[y,m,dd]=s.split('-').map(Number);return new Date(y,m-1,dd);}
+function today(){const n=new Date();return new Date(n.getFullYear(),n.getMonth(),n.getDate());}
+function mondayOf(d){const x=new Date(d);const g=x.getDay();const diff=(g===0?-6:1-g);x.setDate(x.getDate()+diff);return x;}
+function weekIndexFor(d){ if(!S.startDate)return null; const a=parse(S.startDate); const diff=Math.floor((d-a)/86400000); if(diff<0)return 0; return Math.floor(diff/7)+1; }
+
+/* ---------------- task model ---------------- */
+function prepTasksFor(d, wk){
+  const k=DAYKIND[d.getDay()]; const out=[];
+  if(k.tracks[0]==='SAT'){
+    out.push({id:'s1',ic:'🏗️',main:'ML system-design case (timed, spoken aloud)',detail:W[wk].sys[0],src:W[wk].sys[1],time:'~90m'});
+    out.push({id:'s2',ic:'⌨️',main:'Timed DSA mock — 2 problems in 45 min',detail:'this week: '+W[wk].dsa[0],src:W[wk].dsa[1],time:'45m'});
+    out.push({id:'s3',ic:'🎥',main:'1 Scaler HLD lecture @1.75×',detail:'pick from: load balancing · caching · DB/sharding · queues · CAP · rate limiting',src:'Scaler (cherry-picked only)',time:'~75m'});
+  } else if(k.tracks[0]==='SUN'){
+    out.push({id:'s1',ic:'⌨️',main:'DSA catch-up — clear anything missed this week',detail:W[wk].dsa[0],src:W[wk].dsa[1],time:'45m'});
+    out.push({id:'s2',ic:'🧠',main:'LLM deep-dive — go deeper on this week’s topic',detail:W[wk].llm[0],src:W[wk].llm[1],time:'~60m'});
+    out.push({id:'s3',ic:'🧭',main:'Weekly review + plan next week',detail:'What got done? What slipped? Set next week’s intent. (15 min, honest, just facts.)',src:'your notebook',time:'15m'});
+  } else {
+    k.tracks.forEach((t,i)=>{ out.push({id:'p'+i, ic:TRACKMETA[t].ic, main:TRACKMETA[t].lab, detail:W[wk][t][0], src:W[wk][t][1], time:k.times[i]}); });
+  }
+  return out;
+}
+
+/* ---------------- progress calc ---------------- */
+function dayComplete(dateStr){ const e=S.log[dateStr]; if(!e||!e.checked)return false; return e.checked.includes('gym')&&e.checked.includes('work')&&e.prepDone; }
+function computeStreak(){
+  let n=0; let d=today();
+  // allow today to be incomplete without breaking streak; count back from yesterday if today not done
+  for(let i=0;i<400;i++){
+    const ds=fmt(d); const e=S.log[ds];
+    const prep = e&&e.prepDone;
+    if(prep){ n++; d.setDate(d.getDate()-1); }
+    else { if(i===0){ d.setDate(d.getDate()-1); continue; } break; }
+  }
+  return n;
+}
+function activeDays(){return Object.values(S.log).filter(e=>e.prepDone).length;}
+
+/* ---------------- rendering ---------------- */
+const $=s=>document.querySelector(s);
+function setAccent(wk){ const ph=PHASE(wk||1); document.documentElement.style.setProperty('--accent',ph.c); }
+
+function render(){
+  const wk=weekIndexFor(today());
+  setAccent(wk||1);
+  renderHeader(wk);
+  renderToday(wk);
+  renderWeek(wk);
+  renderMap(wk);
+}
+
+function renderHeader(wk){
+  $('#streakNum').textContent=computeStreak();
+  const pill=$('#phasePill');
+  if(!S.startDate){ pill.innerHTML='<b>Not started</b> · set your start date'; return; }
+  if(wk===0){ const a=parse(S.startDate); const days=Math.ceil((a-today())/86400000); pill.innerHTML='<b>Starts in '+days+'d</b> · '+MON[a.getMonth()]+' '+a.getDate(); return; }
+  if(wk>12){ pill.innerHTML='<b>Block complete 🎉</b> · maintenance mode'; return; }
+  const ph=PHASE(wk);
+  pill.innerHTML='<b>Week '+wk+' / 12</b><span class="sep">·</span>Phase '+ph.n+' '+ph.name;
+}
+
+function renderToday(wk){
+  const v=$('#view-today');
+  if(!S.startDate){ v.innerHTML=setupHTML(); wireSetup(); return; }
+  const d=today(); const ds=fmt(d);
+  if(wk===0){ v.innerHTML='<div class="setup"><h2>Not yet 🌱</h2><p>Your 12-week block starts on '+MON[parse(S.startDate).getMonth()]+' '+parse(S.startDate).getDate()+'. Rest up — discipline starts then.</p><button class="btn ghost" onclick="changeStart()">Change start date</button></div>'; return; }
+  const useWk=Math.min(wk,12);
+  const k=DAYKIND[d.getDay()];
+  const tasks=prepTasksFor(d,useWk);
+  const entry=S.log[ds]||{checked:[],note:'',prepDone:false};
+  const checked=entry.checked||[];
+
+  // build pillar tasks (gym, work) + prep
+  let html='';
+  html+='<div class="todayhead"><div><div class="daybig">'+DAYNAMES[d.getDay()]+'</div><div class="daysub">'+MON[d.getMonth()]+' '+d.getDate()+' · Week '+useWk+'</div></div><div class="daytype">'+k.name+'</div></div>';
+
+  // progress ring
+  const allIds=['gym','work',...tasks.map(t=>t.id)];
+  const doneCount=allIds.filter(id=>checked.includes(id)).length;
+  const pct=Math.round(doneCount/allIds.length*100);
+  html+=ringHTML(pct,doneCount,allIds.length);
+
+  // pillar 1+2
+  html+='<div class="plabel">The three non-negotiables</div>';
+  html+=taskHTML({id:'gym',ic:'🏋️',main:'Gym',detail:'Train today (4–6×/week target)',src:'',time:''},checked);
+  html+=taskHTML({id:'work',ic:'💼',main:'JLR — ship the day job',detail:'Do today’s work well. Your switch story is built on being excellent here.',src:'',time:''},checked);
+
+  html+='<div class="plabel">Switch prep · '+k.name+'</div>';
+  tasks.forEach(t=>{ html+=taskHTML(t,checked); });
+
+  // overflow rule
+  html+='<div class="overflow"><div class="ob">↻</div><p><b>JLR work done early?</b> Don’t open YouTube — pull tomorrow’s prep forward, or grind 2 extra DSA problems from this week’s set ('+W[useWk].dsa[0]+'). Momentum &gt; rest you didn’t need.</p></div>';
+
+  // note
+  html+='<div class="note"><div class="nl">One line — today’s win or blocker</div><textarea id="noteBox" placeholder="e.g. finally got self-attention to click">'+(entry.note||'')+'</textarea></div>';
+
+  v.innerHTML=html;
+  // wire
+  v.querySelectorAll('.task').forEach(el=>{ el.onclick=()=>toggle(ds,el.dataset.id,tasks); });
+  const nb=$('#noteBox'); if(nb){ nb.oninput=()=>{ const e=S.log[ds]||{checked:[],prepDone:false}; e.note=nb.value; S.log[ds]=e; save(); }; }
+}
+
+function ringHTML(pct,done,total){
+  const r=22,c=2*Math.PI*r,off=c*(1-pct/100);
+  return '<div class="ring"><svg width="58" height="58" viewBox="0 0 58 58">'+
+    '<circle cx="29" cy="29" r="'+r+'" fill="none" stroke="var(--hair)" stroke-width="6"/>'+
+    '<circle cx="29" cy="29" r="'+r+'" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round" stroke-dasharray="'+c+'" stroke-dashoffset="'+off+'" transform="rotate(-90 29 29)"/>'+
+    '<text x="29" y="33" text-anchor="middle" font-family="Space Grotesk" font-size="14" font-weight="700" fill="#14181f">'+pct+'%</text></svg>'+
+    '<div class="rtext"><div class="big">'+(pct===100?'Day done. 🔥':done+' of '+total+' done')+'</div><div class="sm">'+(pct===100?'No-zero day locked in.':'Tap a card when you finish it.')+'</div></div></div>';
+}
+
+function taskHTML(t,checked){
+  const on=checked.includes(t.id)?' done':'';
+  let inner='<div class="tmain">'+(t.time?'<span class="ttime">'+t.time+'</span>':'')+'<span class="ic">'+t.ic+'</span>'+t.main+'</div>';
+  if(t.detail) inner+='<div class="tdetail">'+t.detail+'</div>';
+  if(t.src) inner+='<div class="tsource">→ <b>'+t.src+'</b></div>';
+  return '<div class="task'+on+'" data-id="'+t.id+'"><div class="check"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7.5l3 3 7-8" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="tbody">'+inner+'</div></div>';
+}
+
+function toggle(ds,id,tasks){
+  const e=S.log[ds]||{checked:[],note:'',prepDone:false};
+  e.checked=e.checked||[];
+  const i=e.checked.indexOf(id);
+  if(i>=0)e.checked.splice(i,1); else e.checked.push(id);
+  // prepDone = all prep task ids checked
+  const prepIds=tasks.map(t=>t.id);
+  e.prepDone=prepIds.every(pid=>e.checked.includes(pid));
+  S.log[ds]=e; save();
+  renderHeader(weekIndexFor(today()));
+  renderToday(weekIndexFor(today()));
+}
+
+function renderWeek(wk){
+  const v=$('#view-week');
+  if(!S.startDate||wk===0){ v.innerHTML='<div class="setup"><p>Set your start date on the Today tab first.</p></div>'; return; }
+  const useWk=Math.min(wk,12); const ph=PHASE(useWk);
+  let html='<div class="wkhead"><div class="wt">Week '+useWk+'</div><div class="wp" style="background:'+ph.c+'">PHASE '+ph.n+' · '+ph.name.toUpperCase()+'</div></div>';
+  if(APPLY[useWk]) html+='<div class="applybar"><span class="ab">APPLY</span><p>'+APPLY[useWk]+'</p></div>';
+
+  // 7-day dots (this week's Mon-Sun)
+  const a=parse(S.startDate); const wkStart=new Date(a); wkStart.setDate(a.getDate()+(useWk-1)*7);
+  const labels=['M','T','W','T','F','S','S']; const order=[1,2,3,4,5,6,0];
+  html+='<div class="weekdots">';
+  for(let i=0;i<7;i++){ const dd=new Date(wkStart); dd.setDate(wkStart.getDate()+i); const dstr=fmt(dd);
+    const e=S.log[dstr]; const done=e&&e.prepDone; const isT=dstr===fmt(today());
+    html+='<div class="wd"><div class="lab">'+labels[i]+'</div><div class="cell'+(done?' done':'')+(isT?' today':'')+'">'+(done?'✓':dd.getDate())+'</div></div>';
+  }
+  html+='</div>';
+
+  html+='<div class="plabel">This week reads like a course — here’s every track</div>';
+  ['dsa','sys','llm','code','fund','story'].forEach(t=>{
+    html+='<div class="wtrack"><div class="k"><span class="pip" style="background:'+PIP[t]+'"></span>'+TRACKMETA[t].lab+'</div><div class="v">'+W[useWk][t][0]+'</div><div class="s">→ <b>'+W[useWk][t][1]+'</b></div></div>';
+  });
+
+  html+='<div class="reminder"><b>Saturday</b> = 1 system-design case + timed DSA mock + 1 Scaler HLD lecture. <b>Sunday</b> = catch-up + LLM deep-dive + the 15-min weekly review. The review is the feedback loop — don’t skip it.</div>';
+  v.innerHTML=html;
+}
+
+function renderMap(wk){
+  const v=$('#view-map');
+  const cur=(S.startDate&&wk>0)?Math.min(wk,12):0;
+  const heights=[30,36,48,54,60,66,76,82,88,100,96,92];
+  let html='';
+  // stats
+  html+='<div class="stats">'+
+    '<div class="stat"><div class="num">'+(cur||'–')+'</div><div class="lab">Current week</div></div>'+
+    '<div class="stat"><div class="num">'+computeStreak()+'</div><div class="lab">Day streak</div></div>'+
+    '<div class="stat"><div class="num">'+activeDays()+'</div><div class="lab">Active days</div></div></div>';
+  // ramp
+  html+='<div class="ramp">';
+  for(let i=0;i<12;i++){ const ph=PHASE(i+1); html+='<div class="col'+(cur===i+1?' cur':'')+'"><div class="wn">'+(i+1)+'</div><div class="bar" style="height:'+heights[i]+'%;background:'+ph.c+'"></div></div>'; }
+  html+='</div>';
+  html+='<div class="phlabels"><div class="ph" style="background:var(--p1)">P1 Foundation</div><div class="ph" style="background:var(--p2)">P2 Build</div><div class="ph" style="background:var(--p3)">P3 Depth</div><div class="ph" style="background:var(--p4)">P4 Peak</div></div>';
+
+  html+='<div class="mlabel">Milestones — tap when you hit them</div>';
+  MILES.forEach(m=>{ const done=S.miles.includes(m.id);
+    html+='<div class="mile'+(done?' done':'')+'" data-m="'+m.id+'"><div class="mc"><svg width="12" height="12" viewBox="0 0 14 14"><path d="M2 7.5l3 3 7-8" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="mt"><span class="mw">'+m.wk+'</span>'+m.t+'</div></div>';
+  });
+
+  html+='<div class="resetrow"><button class="btn ghost" onclick="exportData()">Back up</button><button class="btn ghost" onclick="importData()">Restore</button><button class="btn ghost" onclick="changeStart()">Start date</button></div>';
+  html+='<div class="small">'+(persistMode==='memory'?'⚠ Saving is off in this preview — it switches on once the file is saved to your phone.':'Progress saves automatically on this device.')+'<br>Back up occasionally so your streak survives a phone change.<br>Cut from the bottom if behind — never from DSA or the deep-dive doc.</div>';
+  v.innerHTML=html;
+  v.querySelectorAll('.mile').forEach(el=>{ el.onclick=()=>{ const id=el.dataset.m; const i=S.miles.indexOf(id); if(i>=0)S.miles.splice(i,1);else S.miles.push(id); save(); renderMap(weekIndexFor(today())); }; });
+}
+
+/* ---------------- setup ---------------- */
+function setupHTML(){
+  const m=mondayOf(today()); const ms=fmt(m);
+  return '<div class="setup"><h2>Set your Week 1 start 🚀</h2><p>Pick the Monday you’ll begin. Each week advances automatically, and every day shows you the exact tasks — no guessing, no scrolling.</p><input type="date" id="startInput" value="'+ms+'"><br><button class="btn" id="startBtn">Start the block</button><br><br><p style="font-size:11.5px">Tip: start this coming Monday so Week 1 begins clean.</p></div>';
+}
+function wireSetup(){
+  const b=$('#startBtn'); if(!b)return;
+  b.onclick=()=>{ const val=$('#startInput').value; if(!val)return; S.startDate=val; if(!S.miles)S.miles=[]; save(); render(); };
+}
+function changeStart(){
+  const cur=S.startDate||fmt(mondayOf(today()));
+  const val=prompt('Start date (YYYY-MM-DD) — ideally a Monday:',cur);
+  if(val&&/^\d{4}-\d{2}-\d{2}$/.test(val)){ S.startDate=val; save(); render(); }
+}
+async function exportData(){
+  const blob=JSON.stringify(S);
+  try{ await navigator.clipboard.writeText(blob); alert('✅ Backup copied to clipboard.\n\nPaste it into Notes or email it to yourself. To restore on any device, tap Restore and paste it back.'); }
+  catch(e){ window.prompt('Select all + copy this backup text, save it somewhere safe:', blob); }
+}
+function importData(){
+  const v=window.prompt('Paste your backup text here to restore:');
+  if(!v)return;
+  try{ const obj=JSON.parse(v); if(obj&&typeof obj==='object'){ S=obj; if(!S.miles)S.miles=[]; if(!S.log)S.log={}; save(); render(); alert('✅ Restored.'); } else alert('That didn’t look like valid backup text.'); }
+  catch(e){ alert('Couldn’t read that backup text — make sure you pasted the whole thing.'); }
+}
+
+/* ---------------- tabs ---------------- */
+document.querySelectorAll('.tab').forEach(t=>{ t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on'); $('#view-'+t.dataset.v).classList.add('on');
+};});
+
+/* ---------------- boot ---------------- */
+(async()=>{ detectPersist(); await load(); if(!S.miles)S.miles=[]; if(!S.log)S.log={}; render(); })();
+</script>
+</body>
+</html>
