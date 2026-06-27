@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prep Run — Frontier Lab Switch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0F1017; --surface:#15161F; --panel:#1B1D29; --panel2:#212432;
+    --line:#2B2E3D; --line2:#363A4C;
+    --text:#ECEAE1; --dim:#8A8FA3; --faint:#5D6273;
+    --amber:#E8B14C; --amber-soft:#3a3019;
+    --indigo:#8B9BFF; --green:#5BD6A0; --red:#E8755B;
+    --r:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:
+      radial-gradient(1100px 520px at 82% -8%, #1d2030 0%, transparent 60%),
+      radial-gradient(900px 480px at -5% 8%, #1a1c2a 0%, transparent 55%),
+      var(--ink);
+    color:var(--text); font-family:"Space Grotesk",system-ui,sans-serif;
+    line-height:1.5; min-height:100vh; padding:28px 18px 60px;
+  }
+  .wrap{max-width:1080px;margin:0 auto}
+  .mono{font-family:"JetBrains Mono",monospace}
+
+  /* ---- header ---- */
+  header{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:22px}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--amber)}
+  h1{font-size:clamp(26px,4.4vw,40px);font-weight:700;letter-spacing:-1px;line-height:1.04;margin-top:6px}
+  h1 span{color:var(--dim);font-weight:400}
+  .sub{color:var(--dim);font-size:13.5px;margin-top:8px;max-width:46ch}
+  .countdown{text-align:right}
+  .countdown .big{font-family:"JetBrains Mono",monospace;font-size:40px;font-weight:700;color:var(--text);line-height:1}
+  .countdown .lbl{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);margin-top:6px}
+
+  /* ---- stat strip ---- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px}
+  .stat .n{font-family:"JetBrains Mono",monospace;font-size:28px;font-weight:700;letter-spacing:-1px;display:flex;align-items:baseline;gap:6px}
+  .stat .n small{font-size:13px;color:var(--faint);font-weight:500}
+  .stat .k{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;color:var(--dim);margin-top:3px}
+  .stat.flame .n{color:var(--amber)}
+
+  /* ---- grid ---- */
+  .cols{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:start}
+  @media(max-width:820px){.cols{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px}
+  .card h2{font-size:13px;font-family:"JetBrains Mono",monospace;letter-spacing:1.8px;text-transform:uppercase;color:var(--dim);font-weight:500;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+  .card h2 .tag{color:var(--amber)}
+
+  /* ---- heatmap (signature) ---- */
+  .heatcard{margin-bottom:18px}
+  .heatwrap{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap}
+  .heatmap{display:flex;gap:4px;overflow-x:auto;padding-bottom:4px}
+  .hcol{display:flex;flex-direction:column;gap:4px}
+  .hcell{width:15px;height:15px;border-radius:4px;background:#1f2230;border:1px solid #262a3a}
+  .hcell.l1{background:#4a3c1c;border-color:#5a4a22}
+  .hcell.l2{background:#8a6a26;border-color:#9a7628}
+  .hcell.l3{background:#c79636;border-color:#d6a23a}
+  .hcell.l4{background:var(--amber);border-color:#f0c46a}
+  .hcell.today{outline:2px solid var(--indigo);outline-offset:1px}
+  .heatlegend{display:flex;align-items:center;gap:6px;margin-top:10px;font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--faint)}
+  .heatlegend .hcell{width:11px;height:11px}
+
+  /* ---- today blocks ---- */
+  .daterow{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .daterow input[type=date]{background:var(--panel2);border:1px solid var(--line2);color:var(--text);font-family:"JetBrains Mono",monospace;font-size:12px;padding:7px 10px;border-radius:9px}
+  .daypill{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:5px 10px;border-radius:999px;background:var(--amber-soft);color:var(--amber);border:1px solid #4a3c1c}
+  .block{display:flex;align-items:center;gap:12px;padding:11px 12px;border:1px solid var(--line);border-radius:11px;margin-bottom:8px;cursor:pointer;transition:.15s;background:var(--panel2)}
+  .block:hover{border-color:var(--line2)}
+  .block.done{background:#1c2418;border-color:#2f5a2a}
+  .check{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--line2);flex-shrink:0;display:grid;place-items:center;transition:.15s}
+  .block.done .check{background:var(--green);border-color:var(--green)}
+  .check svg{width:12px;height:12px;opacity:0;transition:.15s}
+  .block.done .check svg{opacity:1}
+  .block .b-main{flex:1;font-size:14px;font-weight:500}
+  .block .b-pillar{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:1px;text-transform:uppercase;color:var(--faint);padding:3px 7px;border:1px solid var(--line);border-radius:6px}
+  .commute{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--faint);margin:4px 2px 12px;display:flex;gap:8px;align-items:center}
+  .commute b{color:var(--indigo);font-weight:500}
+
+  /* ---- metrics row ---- */
+  .metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .mfield{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .mfield label{display:block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+  .stepper{display:flex;align-items:center;gap:8px}
+  .stepper button{width:26px;height:26px;border-radius:7px;border:1px solid var(--line2);background:var(--panel);color:var(--text);font-size:15px;cursor:pointer;line-height:1}
+  .stepper button:hover{border-color:var(--amber);color:var(--amber)}
+  .stepper .val{font-family:"JetBrains Mono",monospace;font-size:17px;font-weight:700;min-width:24px;text-align:center}
+  .toggles{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+  .tog{flex:1;min-width:120px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.5px;padding:9px;border-radius:10px;border:1px solid var(--line2);background:var(--panel2);color:var(--dim);cursor:pointer;text-align:center;transition:.15s}
+  .tog.on{background:#1c2418;border-color:#2f5a2a;color:var(--green)}
+  .tog.off-bad.set{background:#2a1a17;border-color:#5a2f28;color:var(--red)}
+
+  /* ---- roadmap ---- */
+  .week{display:flex;gap:13px;padding:12px 0;border-bottom:1px solid var(--line);cursor:pointer}
+  .week:last-child{border-bottom:none}
+  .node{width:30px;height:30px;border-radius:9px;border:1.5px solid var(--line2);flex-shrink:0;display:grid;place-items:center;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;color:var(--faint);transition:.2s}
+  .week.done .node{background:var(--amber);border-color:var(--amber);color:#1a1206}
+  .week.current .node{border-color:var(--indigo);color:var(--indigo);box-shadow:0 0 0 3px rgba(139,155,255,.12)}
+  .w-body .w-theme{font-size:14px;font-weight:600;line-height:1.3}
+  .w-body .w-check{font-size:12px;color:var(--dim);margin-top:3px}
+  .week.done .w-theme{color:var(--dim);text-decoration:line-through;text-decoration-color:var(--faint)}
+
+  /* ---- pillars ---- */
+  .pillar{margin-bottom:13px}
+  .pillar .ptop{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px}
+  .pillar .ptop .pc{font-family:"JetBrains Mono",monospace;color:var(--dim)}
+  .bar{height:8px;background:#1f2230;border-radius:99px;overflow:hidden}
+  .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#9a7628,var(--amber));transition:width .5s ease}
+
+  /* ---- notes ---- */
+  .notes-field{margin-top:12px}
+  .notes-field label{display:block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+  textarea.notes{width:100%;min-height:74px;resize:vertical;background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--text);font-family:"Space Grotesk",sans-serif;font-size:13.5px;line-height:1.5;padding:10px 12px}
+  textarea.notes::placeholder{color:var(--faint)}
+  textarea.notes:focus{outline:none;border-color:var(--line2)}
+
+  /* ---- history log ---- */
+  .logcard{margin-top:18px}
+  .logcard h2 .tag{color:var(--dim)}
+  .loglist{max-height:420px;overflow-y:auto;margin:-4px -4px 0;padding:0 4px}
+  .logempty{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--faint);padding:14px 2px}
+  .logrow{padding:13px 14px;border:1px solid var(--line);border-radius:11px;margin-bottom:9px;cursor:pointer;transition:.15s;background:var(--panel2)}
+  .logrow:hover{border-color:var(--line2);transform:translateX(2px)}
+  .logrow.viewing{border-color:var(--indigo);box-shadow:0 0 0 3px rgba(139,155,255,.1)}
+  .logrow .lr-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .lr-date{font-weight:600;font-size:14px;min-width:118px}
+  .lr-date small{display:block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--faint);font-weight:400;margin-top:1px}
+  .lr-meta{display:flex;gap:7px;flex-wrap:wrap;font-family:"JetBrains Mono",monospace;font-size:10.5px}
+  .chip{padding:3px 8px;border-radius:7px;border:1px solid var(--line);color:var(--dim);white-space:nowrap}
+  .chip.amber{color:var(--amber);border-color:#4a3c1c;background:var(--amber-soft)}
+  .chip.green{color:var(--green);border-color:#2f5a2a;background:#1c2418}
+  .chip.red{color:var(--red);border-color:#5a2f28;background:#2a1a17}
+  .chip.indigo{color:var(--indigo);border-color:#34406a;background:#1a1f33}
+  .lr-notes{margin-top:9px;font-size:13px;color:var(--dim);line-height:1.5;white-space:pre-wrap;border-left:2px solid var(--line2);padding-left:11px}
+
+  /* ---- footer / data ---- */
+  .data{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px;align-items:center}
+  .btn{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.5px;padding:9px 14px;border-radius:10px;border:1px solid var(--line2);background:var(--panel);color:var(--text);cursor:pointer;transition:.15s}
+  .btn:hover{border-color:var(--amber);color:var(--amber)}
+  .btn.danger:hover{border-color:var(--red);color:var(--red)}
+  .note{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--faint);margin-left:auto}
+  .save{margin-top:14px;width:100%;font-family:"Space Grotesk";font-size:14px;font-weight:600;padding:12px;border-radius:11px;border:none;background:var(--amber);color:#1a1206;cursor:pointer}
+  .save:hover{background:#f0c46a}
+  .saved{color:var(--green)!important}
+  @media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <div class="eyebrow">Prep Run · 6-week switch</div>
+      <h1>Frontier Lab Switch <span>// daily log</span></h1>
+      <p class="sub">JLR → Sarvam / Krutrim / GCC. Two sharp hours a night, the green graph stays green, the hard stop holds.</p>
+    </div>
+    <div class="countdown">
+      <div class="big mono" id="cdNum">—</div>
+      <div class="lbl">days to target</div>
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="stat flame"><div class="n mono" id="stStreak">0<small>days</small></div><div class="k">current streak</div></div>
+    <div class="stat"><div class="n mono" id="stDays">0</div><div class="k">days logged</div></div>
+    <div class="stat"><div class="n mono" id="stLC">0</div><div class="k">leetcode solved</div></div>
+    <div class="stat"><div class="n mono" id="stCommits">0</div><div class="k">github commits</div></div>
+  </div>
+
+  <!-- SIGNATURE: activity heatmap -->
+  <div class="card heatcard">
+    <h2>Consistency <span class="tag" id="heatPct">0% active</span></h2>
+    <div class="heatwrap">
+      <div class="heatmap" id="heatmap"></div>
+    </div>
+    <div class="heatlegend">
+      <span>less</span>
+      <span class="hcell"></span><span class="hcell l1"></span><span class="hcell l2"></span><span class="hcell l3"></span><span class="hcell l4"></span>
+      <span>more</span>
+      <span style="margin-left:14px">— intensity = prep blocks finished that day</span>
+    </div>
+  </div>
+
+  <div class="cols">
+    <!-- TODAY -->
+    <div class="card">
+      <h2>Today's blocks <span class="tag" id="dayName"></span></h2>
+      <div class="daterow">
+        <input type="date" id="datePick">
+        <span class="daypill" id="dayPill"></span>
+      </div>
+      <div id="commuteNote"></div>
+      <div id="blocks"></div>
+
+      <div class="metrics">
+        <div class="mfield">
+          <label>LeetCode solved</label>
+          <div class="stepper"><button data-m="lc" data-d="-1">–</button><span class="val mono" id="lcVal">0</span><button data-m="lc" data-d="1">+</button></div>
+        </div>
+        <div class="mfield">
+          <label>GitHub commits</label>
+          <div class="stepper"><button data-m="commits" data-d="-1">–</button><span class="val mono" id="commitsVal">0</span><button data-m="commits" data-d="1">+</button></div>
+        </div>
+      </div>
+      <div class="toggles">
+        <button class="tog off-bad" id="togHardstop">Hard stop ≤ 6:30</button>
+        <button class="tog" id="togGym">Gym done</button>
+      </div>
+      <div class="notes-field">
+        <label>Notes for this day</label>
+        <textarea class="notes" id="notesInput" placeholder="What you covered, what clicked, what to revisit, mock feedback, blockers…"></textarea>
+      </div>
+      <button class="save" id="saveBtn">Save today</button>
+    </div>
+
+    <!-- ROADMAP + PILLARS -->
+    <div>
+      <div class="card" style="margin-bottom:18px">
+        <h2>6-week roadmap <span class="tag" id="weekDone">0/6</span></h2>
+        <div id="roadmap"></div>
+      </div>
+      <div class="card">
+        <h2>Pillar volume</h2>
+        <div id="pillars"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card logcard">
+    <h2>Log &amp; history <span class="tag" id="logCount">0 days</span></h2>
+    <div class="loglist" id="loglist"></div>
+  </div>
+
+  <div class="data">
+    <button class="btn" id="exportBtn">⤓ Export JSON</button>
+    <button class="btn" id="importBtn">⤒ Import</button>
+    <input type="file" id="importFile" accept="application/json" hidden>
+    <button class="btn danger" id="resetBtn">Reset all</button>
+    <span class="note" id="storeNote"></span>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---- config ----
+  // Set your real target date here (interview/offer deadline). Default: 6 weeks out from first load.
+  var TARGET_DATE = null; // e.g. "2026-08-10"
+
+  var PILLARS = {
+    dsa:  {name:"DSA",               target:32},
+    ml:   {name:"ML fundamentals",   target:18},
+    mlsd: {name:"ML system design",  target:14},
+    hld:  {name:"HLD / behavioral",  target:8},
+    mux:  {name:"Agent Mux (Go)",    target:16}
+  };
+
+  // weekday -> blocks  (0=Sun ... 6=Sat), matches the master plan rhythm
+  var DAYS = {
+    0:{label:"Sun · deep work", commute:null, blocks:[
+        {id:"sun-dsa",  t:"DSA problem set (1.5h)",      p:"dsa"},
+        {id:"sun-ml",   t:"ML fundamentals deep (1.5h)", p:"ml"},
+        {id:"sun-rev",  t:"Week review + plan (0.5h)",   p:"ml"}]},
+    1:{label:"Mon · build", commute:null, blocks:[
+        {id:"mon-dsa",  t:"DSA new pattern (1h)",        p:"dsa"},
+        {id:"mon-ml",   t:"ML fundamentals (1h)",        p:"ml"}]},
+    2:{label:"Tue · design", commute:"ML video / paper summary on the commute", blocks:[
+        {id:"tue-sd",   t:"ML system design (1.5h)",     p:"mlsd"},
+        {id:"tue-dsa",  t:"DSA review (0.5h)",           p:"dsa"}]},
+    3:{label:"Wed · build", commute:null, blocks:[
+        {id:"wed-dsa",  t:"DSA new pattern (1h)",        p:"dsa"},
+        {id:"wed-ml",   t:"ML fundamentals (1h)",        p:"ml"}]},
+    4:{label:"Thu · design", commute:"System-design case / flashcards on the commute", blocks:[
+        {id:"thu-hld",  t:"System design / HLD (1.5h)",  p:"hld"},
+        {id:"thu-dsa",  t:"DSA review (0.5h)",           p:"dsa"}]},
+    5:{label:"Fri · Agent Mux", commute:null, blocks:[
+        {id:"fri-go",   t:"Agent Mux — learn Go + build (2h)", p:"mux"},
+        {id:"fri-commit",t:"Commit to GitHub",           p:"mux"}]},
+    6:{label:"Sat · deep work", commute:null, blocks:[
+        {id:"sat-sd",   t:"ML system design deep (2h)",  p:"mlsd"},
+        {id:"sat-mock", t:"Mock interview (1h)",         p:"mlsd"},
+        {id:"sat-mux",  t:"Agent Mux (1–2h)",            p:"mux"}]}
+  };
+
+  var WEEKS = [
+    {n:1, theme:"Foundations",         chk:"Two Pointers + Sliding Window · attention from scratch · first RAG design · Go basics + repo init"},
+    {n:2, theme:"Core mechanics",      chk:"Stack + Binary Search · training dynamics · LLM-serving design · CLI skeleton runs"},
+    {n:3, theme:"Depth + first mocks", chk:"Trees + Heaps · LoRA/RLHF/DPO · recsys design · orchestration core · 1st mock done"},
+    {n:4, theme:"Advanced + mock ramp",chk:"Backtracking + Graphs · inference optimization · vector-search design clean · hotkeys"},
+    {n:5, theme:"Integration",         chk:"Graphs adv + 1-D DP · classical ML · data-curation pipeline · STAR rehearsed · v0.1 tagged"},
+    {n:6, theme:"Polish + apply",      chk:"2-D DP + Intervals · 2 timed designs · applications out to Sarvam / Krutrim / GCCs"}
+  ];
+
+  // ---- storage (graceful: persists when hosted, falls back to memory in sandboxed previews) ----
+  var KEY = "prepRunV1", mem = null;
+  function load(){ try{ return JSON.parse(localStorage.getItem(KEY)) || null; }catch(e){ return mem; } }
+  function persist(s){ try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){ mem = s; } }
+  function storageOK(){ try{ localStorage.setItem("_t","1"); localStorage.removeItem("_t"); return true; }catch(e){ return false; } }
+
+  var state = load() || { firstSeen:null, target:TARGET_DATE, log:{}, weeks:[false,false,false,false,false,false] };
+  if(!state.firstSeen){ state.firstSeen = todayStr(); }
+  if(TARGET_DATE) state.target = TARGET_DATE;
+  if(!state.target){
+    var d = new Date(state.firstSeen+"T00:00:00"); d.setDate(d.getDate()+42);
+    state.target = d.toISOString().slice(0,10);
+  }
+
+  // ---- helpers ----
+  function todayStr(){ var d=new Date(); return d.toISOString().slice(0,10); }
+  function dow(str){ return new Date(str+"T00:00:00").getDay(); }
+  function rec(date){ if(!state.log[date]) state.log[date]={blocks:{},lc:0,commits:0,hardstop:null,gym:false,notes:""}; if(state.log[date].notes===undefined) state.log[date].notes=""; return state.log[date]; }
+  function hasContent(r){ return r && (isActive(r) || (r.notes && r.notes.trim()) || r.gym || r.hardstop!==null && r.hardstop!==undefined); }
+  function isActive(r){ return r && (Object.keys(r.blocks).some(function(k){return r.blocks[k];}) || r.lc>0 || r.commits>0); }
+  function save(){ persist(state); }
+
+  var view = todayStr();
+
+  // ---- renderers ----
+  function renderHeader(){
+    var t=new Date(state.target+"T00:00:00"), now=new Date(); now.setHours(0,0,0,0);
+    var diff=Math.round((t-now)/86400000);
+    document.getElementById("cdNum").textContent = diff>=0 ? diff : "0";
+  }
+
+  function renderStats(){
+    var days=0, lc=0, commits=0;
+    for(var k in state.log){ var r=state.log[k]; if(isActive(r)) days++; lc+=r.lc||0; commits+=r.commits||0; }
+    // streak: count back from today over active days
+    var streak=0, d=new Date();
+    for(;;){ var s=d.toISOString().slice(0,10); if(state.log[s] && isActive(state.log[s])){ streak++; d.setDate(d.getDate()-1);} else break; }
+    document.getElementById("stStreak").innerHTML = streak+'<small>days</small>';
+    document.getElementById("stDays").textContent = days;
+    document.getElementById("stLC").textContent = lc;
+    document.getElementById("stCommits").textContent = commits;
+  }
+
+  function renderHeatmap(){
+    var WEEKS_BACK=11, total=0, active=0;
+    var end=new Date(); end.setHours(0,0,0,0);
+    // align to end of current week (Sat)
+    var start=new Date(end); start.setDate(start.getDate() - (WEEKS_BACK*7) - end.getDay());
+    var hm=document.getElementById("heatmap"); hm.innerHTML="";
+    var cur=new Date(start);
+    for(var w=0; w<=WEEKS_BACK; w++){
+      var col=document.createElement("div"); col.className="hcol";
+      for(var dd=0; dd<7; dd++){
+        var s=cur.toISOString().slice(0,10);
+        var cell=document.createElement("div"); cell.className="hcell";
+        var r=state.log[s];
+        if(cur<=end){
+          total++;
+          var c = r ? Object.keys(r.blocks).filter(function(k){return r.blocks[k];}).length : 0;
+          if(isActive(r)) active++;
+          if(c>=4) cell.className="hcell l4"; else if(c===3) cell.className="hcell l3";
+          else if(c===2) cell.className="hcell l2"; else if(c===1) cell.className="hcell l1";
+          if(s===todayStr()) cell.classList.add("today");
+          cell.title=s+" — "+c+" blocks";
+        } else { cell.style.visibility="hidden"; }
+        col.appendChild(cell); cur.setDate(cur.getDate()+1);
+      }
+      hm.appendChild(col);
+    }
+    document.getElementById("heatPct").textContent = (total? Math.round(active/total*100):0)+"% active";
+  }
+
+  function renderDay(){
+    var dp=document.getElementById("datePick"); dp.value=view;
+    var dayInfo=DAYS[dow(view)], r=rec(view);
+    document.getElementById("dayName").textContent = dayInfo.label;
+    document.getElementById("dayPill").textContent = new Date(view+"T00:00:00")
+      .toLocaleDateString(undefined,{weekday:"short",day:"numeric",month:"short"});
+
+    var cn=document.getElementById("commuteNote");
+    cn.innerHTML = dayInfo.commute ? '<div class="commute">↳ <b>commute</b> '+dayInfo.commute+'</div>' : "";
+
+    var box=document.getElementById("blocks"); box.innerHTML="";
+    dayInfo.blocks.forEach(function(b){
+      var done=!!r.blocks[b.id];
+      var el=document.createElement("div");
+      el.className="block"+(done?" done":"");
+      el.innerHTML='<div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#13141c" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>'+
+        '<div class="b-main">'+b.t+'</div><div class="b-pillar">'+(PILLARS[b.p]?PILLARS[b.p].name.split(" ")[0]:b.p)+'</div>';
+      el.addEventListener("click",function(){ r.blocks[b.id]=!r.blocks[b.id]; save(); renderDay(); renderStats(); renderHeatmap(); renderPillars(); renderLog(); });
+      box.appendChild(el);
+    });
+
+    document.getElementById("lcVal").textContent = r.lc||0;
+    document.getElementById("commitsVal").textContent = r.commits||0;
+    var th=document.getElementById("togHardstop");
+    th.classList.toggle("on", r.hardstop===true);
+    th.classList.toggle("set", r.hardstop===false);
+    document.getElementById("togGym").classList.toggle("on", !!r.gym);
+    document.getElementById("notesInput").value = r.notes || "";
+  }
+
+  function dayBlockCount(r){ return r ? Object.keys(r.blocks).filter(function(k){return r.blocks[k];}).length : 0; }
+
+  function renderLog(){
+    var list=document.getElementById("loglist"); list.innerHTML="";
+    var dates=Object.keys(state.log).filter(function(d){ return hasContent(state.log[d]); }).sort().reverse();
+    document.getElementById("logCount").textContent = dates.length+(dates.length===1?" day":" days");
+    if(!dates.length){ list.innerHTML='<div class="logempty">No days recorded yet. Check off a block or jot a note, then hit Save today.</div>'; return; }
+    dates.forEach(function(d){
+      var r=state.log[d], c=dayBlockCount(r);
+      var dt=new Date(d+"T00:00:00");
+      var row=document.createElement("div");
+      row.className="logrow"+(d===view?" viewing":"");
+      var meta='<span class="chip '+(c>0?'amber':'')+'">'+c+' block'+(c===1?'':'s')+'</span>';
+      if(r.lc>0)      meta+='<span class="chip">LC '+r.lc+'</span>';
+      if(r.commits>0) meta+='<span class="chip indigo">'+r.commits+' commit'+(r.commits===1?'':'s')+'</span>';
+      if(r.gym)       meta+='<span class="chip green">gym</span>';
+      if(r.hardstop===true)  meta+='<span class="chip green">hard stop ✓</span>';
+      if(r.hardstop===false) meta+='<span class="chip red">stop missed</span>';
+      var notes = (r.notes && r.notes.trim()) ? '<div class="lr-notes">'+escapeHtml(r.notes.trim())+'</div>' : '';
+      row.innerHTML='<div class="lr-top"><div class="lr-date">'+
+        dt.toLocaleDateString(undefined,{weekday:"long"})+
+        '<small>'+dt.toLocaleDateString(undefined,{day:"numeric",month:"short",year:"numeric"})+'</small></div>'+
+        '<div class="lr-meta">'+meta+'</div></div>'+notes;
+      row.addEventListener("click",function(){ view=d; renderDay(); renderLog(); document.getElementById("blocks").scrollIntoView({behavior:"smooth",block:"center"}); });
+      list.appendChild(row);
+    });
+  }
+
+  function escapeHtml(s){ return s.replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c];}); }
+
+  function renderRoadmap(){
+    var rm=document.getElementById("roadmap"); rm.innerHTML="";
+    // current week = weeks since firstSeen
+    var fs=new Date(state.firstSeen+"T00:00:00"), now=new Date();
+    var curWeek=Math.min(6, Math.floor((now-fs)/(7*86400000))+1);
+    WEEKS.forEach(function(w,i){
+      var el=document.createElement("div");
+      el.className="week"+(state.weeks[i]?" done":"")+((i+1)===curWeek && !state.weeks[i]?" current":"");
+      el.innerHTML='<div class="node">'+(state.weeks[i]?'✓':('W'+w.n))+'</div>'+
+        '<div class="w-body"><div class="w-theme">Week '+w.n+' — '+w.theme+'</div><div class="w-check">'+w.chk+'</div></div>';
+      el.addEventListener("click",function(){ state.weeks[i]=!state.weeks[i]; save(); renderRoadmap(); });
+      rm.appendChild(el);
+    });
+    document.getElementById("weekDone").textContent = state.weeks.filter(Boolean).length+"/6";
+  }
+
+  function renderPillars(){
+    var counts={}; for(var p in PILLARS) counts[p]=0;
+    for(var k in state.log){ var r=state.log[k];
+      // map block id -> pillar via DAYS table
+      for(var bid in r.blocks){ if(!r.blocks[bid]) continue;
+        outer: for(var dnum in DAYS){ for(var j=0;j<DAYS[dnum].blocks.length;j++){ if(DAYS[dnum].blocks[j].id===bid){ counts[DAYS[dnum].blocks[j].p]++; break outer; } } }
+      }
+    }
+    var box=document.getElementById("pillars"); box.innerHTML="";
+    for(var pid in PILLARS){ var P=PILLARS[pid], c=counts[pid], pct=Math.min(100, Math.round(c/P.target*100));
+      var el=document.createElement("div"); el.className="pillar";
+      el.innerHTML='<div class="ptop"><span>'+P.name+'</span><span class="pc">'+c+'/'+P.target+'</span></div><div class="bar"><i style="width:'+pct+'%"></i></div>';
+      box.appendChild(el);
+    }
+  }
+
+  // ---- interactions ----
+  document.getElementById("datePick").addEventListener("change",function(e){ view=e.target.value||todayStr(); renderDay(); renderLog(); });
+  document.querySelectorAll(".stepper button").forEach(function(b){
+    b.addEventListener("click",function(){ var r=rec(view), m=b.dataset.m, d=+b.dataset.d;
+      r[m]=Math.max(0,(r[m]||0)+d); save();
+      document.getElementById(m+"Val").textContent=r[m]; renderStats(); renderHeatmap(); renderLog();
+    });
+  });
+  document.getElementById("togHardstop").addEventListener("click",function(){ var r=rec(view);
+    r.hardstop = r.hardstop===true ? false : (r.hardstop===false ? null : true); save(); renderDay(); renderLog();
+  });
+  document.getElementById("togGym").addEventListener("click",function(){ var r=rec(view); r.gym=!r.gym; save(); renderDay(); renderLog(); });
+  document.getElementById("notesInput").addEventListener("input",function(e){ rec(view).notes=e.target.value; save(); });
+  document.getElementById("notesInput").addEventListener("blur",renderLog);
+
+  document.getElementById("saveBtn").addEventListener("click",function(){ save(); renderLog();
+    var b=this; b.textContent="Saved ✓"; b.classList.add("saved");
+    setTimeout(function(){ b.textContent="Save today"; b.classList.remove("saved"); },1200);
+  });
+
+  document.getElementById("exportBtn").addEventListener("click",function(){
+    var blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
+    var a=document.createElement("a"); a.href=URL.createObjectURL(blob);
+    a.download="prep-run-"+todayStr()+".json"; a.click();
+  });
+  document.getElementById("importBtn").addEventListener("click",function(){ document.getElementById("importFile").click(); });
+  document.getElementById("importFile").addEventListener("change",function(e){
+    var f=e.target.files[0]; if(!f) return; var rd=new FileReader();
+    rd.onload=function(){ try{ state=JSON.parse(rd.result); save(); renderAll(); }catch(err){ alert("Could not read that file."); } };
+    rd.readAsText(f);
+  });
+  document.getElementById("resetBtn").addEventListener("click",function(){
+    if(confirm("Reset all logged data? This can't be undone.")){
+      state={ firstSeen:todayStr(), target:state.target, log:{}, weeks:[false,false,false,false,false,false] }; save(); renderAll();
+    }
+  });
+
+  function renderAll(){ renderHeader(); renderStats(); renderHeatmap(); renderDay(); renderRoadmap(); renderPillars(); renderLog(); }
+  renderAll();
+  document.getElementById("storeNote").textContent = storageOK()
+    ? "saved locally in this browser · export weekly to back up"
+    : "preview mode — data won't persist here; it will once hosted on your site";
+})();
+</script>
+</body>
+</html>
