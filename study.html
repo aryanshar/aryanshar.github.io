@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ML Interview Readiness · Aryan Sharma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E1116; --panel:#151A21; --panel2:#1A212A; --line:#262E38;
+    --text:#E7EAF0; --muted:#8A94A3; --faint:#5C6675;
+    --amber:#E8B23A; --teal:#3FB6A8; --teal-dim:#2b6f68;
+    --display:"Space Grotesk",system-ui,sans-serif;
+    --body:"Inter",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{transition:none!important}}
+  body{margin:0;background:var(--ink);color:var(--text);font-family:var(--body);
+    line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+  a{color:var(--teal);text-decoration:none;border-bottom:1px solid transparent}
+  a:hover{border-bottom-color:var(--teal)}
+  .wrap{max-width:920px;margin:0 auto;padding:0 18px}
+
+  /* sticky header */
+  header{position:sticky;top:0;z-index:20;background:rgba(14,17,22,.92);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .hd{display:flex;align-items:center;gap:14px;padding:12px 18px;max-width:920px;margin:0 auto}
+  .hd h1{font-family:var(--display);font-size:15px;font-weight:600;margin:0;letter-spacing:.3px;
+    white-space:nowrap}
+  .hd .sub{font-family:var(--mono);font-size:10px;color:var(--faint);letter-spacing:1.5px;text-transform:uppercase}
+  .gauge{margin-left:auto;display:flex;align-items:center;gap:10px}
+  .gauge .pct{font-family:var(--mono);font-size:13px;color:var(--amber);font-weight:600;min-width:38px;text-align:right}
+  .bar{height:6px;width:120px;background:var(--panel2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+  .bar > i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--amber));
+    transition:width .45s ease}
+  .reset{font-family:var(--mono);font-size:10px;color:var(--faint);background:none;border:1px solid var(--line);
+    padding:5px 8px;border-radius:6px;cursor:pointer;letter-spacing:.5px}
+  .reset:hover{color:var(--text);border-color:var(--faint)}
+
+  /* sub nav */
+  nav.jump{border-bottom:1px solid var(--line);background:var(--ink)}
+  .jump-inner{display:flex;gap:6px;overflow-x:auto;padding:9px 18px;max-width:920px;margin:0 auto;
+    scrollbar-width:none}
+  .jump-inner::-webkit-scrollbar{display:none}
+  .jump-inner a{font-family:var(--mono);font-size:11px;color:var(--muted);white-space:nowrap;
+    padding:5px 10px;border:1px solid var(--line);border-radius:99px;border-bottom-width:1px}
+  .jump-inner a:hover{color:var(--text);border-color:var(--faint)}
+
+  /* hero */
+  .hero{padding:34px 0 8px}
+  .hero .eyebrow{font-family:var(--mono);font-size:11px;color:var(--amber);letter-spacing:2.5px;
+    text-transform:uppercase;margin-bottom:14px}
+  .hero h2{font-family:var(--display);font-weight:700;font-size:clamp(26px,5vw,40px);line-height:1.08;
+    margin:0 0 12px;letter-spacing:-.5px}
+  .hero p{color:var(--muted);max-width:60ch;margin:0 0 6px;font-size:15px}
+  .howto{margin-top:18px;border:1px solid var(--line);background:var(--panel);border-radius:10px;
+    padding:14px 16px;font-size:13.5px;color:var(--muted)}
+  .howto b{color:var(--text);font-weight:600}
+
+  /* section */
+  section{padding:30px 0;border-top:1px solid var(--line);margin-top:6px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:4px}
+  .sec-no{font-family:var(--mono);font-size:12px;color:var(--faint)}
+  .sec-head h3{font-family:var(--display);font-weight:600;font-size:21px;margin:0;letter-spacing:-.2px}
+  .sec-meta{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--muted)}
+  .sec-sub{color:var(--faint);font-size:13px;margin:2px 0 18px}
+  .track-bar{height:3px;background:var(--panel2);border-radius:99px;overflow:hidden;margin-bottom:18px}
+  .track-bar > i{display:block;height:100%;width:0;background:var(--teal);transition:width .4s ease}
+
+  /* checklist */
+  .grp{margin-bottom:20px}
+  .grp-t{font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;
+    color:var(--amber);margin:0 0 9px}
+  ul.list{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+  li.item{display:flex;gap:11px;align-items:flex-start;padding:8px 10px;border-radius:8px;
+    border:1px solid transparent}
+  li.item:hover{background:var(--panel)}
+  li.item.done{opacity:.5}
+  li.item.done .txt{text-decoration:line-through;text-decoration-color:var(--teal-dim)}
+  .box{flex:0 0 auto;width:18px;height:18px;margin-top:1px;border:1.5px solid var(--faint);
+    border-radius:5px;cursor:pointer;position:relative;transition:all .15s}
+  .box:hover{border-color:var(--teal)}
+  .box.on{background:var(--teal);border-color:var(--teal)}
+  .box.on::after{content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+    border:solid #0E1116;border-width:0 2px 2px 0;transform:rotate(45deg)}
+  .body-c{flex:1;min-width:0}
+  .txt{font-size:14.5px;cursor:pointer}
+  .txt small{display:block;color:var(--faint);font-size:12px;margin-top:2px;line-height:1.4}
+  .res{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:4px}
+  .res a{color:var(--muted)} .res a:hover{color:var(--teal)}
+  .tag{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.5px;
+    text-transform:uppercase;color:var(--faint);border:1px solid var(--line);border-radius:4px;
+    padding:1px 5px;margin-left:8px;vertical-align:middle}
+
+  /* schedule */
+  .week{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .week:last-child{border-bottom:none}
+  .week .wk{font-family:var(--mono);font-size:11px;color:var(--amber);flex:0 0 56px;padding-top:2px;letter-spacing:.5px}
+  .week .wc{flex:1}
+  .week h4{font-family:var(--display);font-size:15px;margin:0 0 4px;font-weight:600}
+  .week p{margin:0;color:var(--muted);font-size:13px}
+
+  /* resources master */
+  .rescard{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+  .rescard h4{font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;
+    color:var(--amber);margin:0 0 10px}
+  .rescard ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+  .rescard li{font-size:13.5px;display:flex;gap:8px;align-items:baseline}
+  .rescard li .k{color:var(--text);font-weight:500}
+  .rescard li .d{color:var(--faint);font-size:12px}
+
+  footer{padding:30px 0 10px;color:var(--faint);font-size:12px;font-family:var(--mono);
+    border-top:1px solid var(--line);margin-top:20px}
+  .saved{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--panel2);border:1px solid var(--line);color:var(--muted);font-family:var(--mono);
+    font-size:11px;padding:7px 14px;border-radius:99px;opacity:0;transition:all .3s;pointer-events:none}
+  .saved.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<header>
+  <div class="hd">
+    <div>
+      <h1>ML Interview Readiness</h1>
+      <div class="sub">Aryan Sharma · Senior ML</div>
+    </div>
+    <div class="gauge">
+      <div class="bar"><i id="ovBar"></i></div>
+      <span class="pct" id="ovPct">0%</span>
+      <button class="reset" id="resetBtn">RESET</button>
+    </div>
+  </div>
+  <nav class="jump"><div class="jump-inner" id="jumpNav"></div></nav>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div class="eyebrow">8-week loop · check as you go</div>
+    <h2>Everything you need to walk in ready.</h2>
+    <p>Six tracks, one syllabus, one resource list. Tick a box and it saves on this device — close the tab, come back, your progress is still here.</p>
+    <div class="howto"><b>How to use:</b> Follow the schedule below for pacing, work the tracks in any order, and click the box (or the text) on every line you've truly got cold. The bar up top is your overall readiness. Aim for ~80%+ before onsites; 100% on Behavioral and your two strongest System-Design designs is non-negotiable.</div>
+  </div>
+
+  <section id="schedule">
+    <div class="sec-head"><span class="sec-no">PLAN</span><h3>8-Week Schedule</h3>
+      <span class="sec-meta" id="m-schedule">0 / 0</span></div>
+    <div class="sec-sub">Compresses to 4–5 weeks if you go hard. Daily rhythm: 1 coding warm-up, 1 deep topic, 1 design or mock.</div>
+    <div class="track-bar"><i id="b-schedule"></i></div>
+    <div id="weeks"></div>
+  </section>
+
+  <div id="tracks"></div>
+
+  <section id="resources">
+    <div class="sec-head"><span class="sec-no">REF</span><h3>Master Resource List</h3></div>
+    <div class="sec-sub">The short list. Don't collect more — go deep on these.</div>
+    <div id="resGrid"></div>
+  </section>
+
+  <footer>Built for the loop. Progress stored locally in your browser · no account, no cloud.</footer>
+</main>
+<div class="saved" id="savedToast">progress saved</div>
+
+<script>
+/* ---------- DATA ---------- */
+const SCHEDULE = [
+  ["W1","Fundamentals refresh + coding warm-up","ML breadth (regression→trees→metrics). DSA: arrays, strings, hashmaps. Start writing your project deep-dive notes."],
+  ["W2","Deep learning + transformers core","Backprop, CNNs, attention, the Transformer block end to end. DSA: trees, graphs, recursion."],
+  ["W3","LLM / GenAI depth + ML-from-scratch","Tokenization, positional encoding, fine-tuning (LoRA), decoding, RAG. Implement attention / k-means / logistic regression by hand."],
+  ["W4","ML system design — framework + 2 designs","Lock the design framework. Practise: recommendation/feed ranking, and search/retrieval. DSA: DP, heaps, intervals."],
+  ["W5","GenAI system design + your infra edge","Design a RAG system, an LLM serving stack, and a semantic-search platform (your home turf). Sharpen MLOps/training-infra answers."],
+  ["W6","Mocks + behavioral stories","2–3 mock system-design + coding rounds. Write 6–8 STAR stories. Rehearse Scene Search / 3D-detection / Ray deep-dives out loud."],
+  ["W7","Patch weak areas + company prep","Re-do anything below 100%. Research each target (Sarvam, Krutrim, Mistral, YC startups) and tailor your story + questions."],
+  ["W8","Full loops + polish + rest","Back-to-back mock loops. Tighten project narratives. Taper the last 2 days — arrive sharp, not fried."]
+];
+
+const TRACKS = [
+  {
+    id:"fundamentals", no:"01", title:"ML Fundamentals & Breadth",
+    sub:"The screening-round bread and butter. Be able to explain any of these on a whiteboard in 2 minutes.",
+    groups:[
+      {t:"Classical supervised", items:[
+        {x:"Linear & logistic regression — assumptions, loss, when each fails"},
+        {x:"Regularization: L1 vs L2, what each does to weights, when to use"},
+        {x:"Bias–variance tradeoff, overfitting/underfitting, learning curves"},
+        {x:"Decision trees → Random Forests → Gradient Boosting (XGBoost intuition)"},
+        {x:"Cross-validation, data leakage, train/val/test discipline"},
+      ]},
+      {t:"Unsupervised & stats", items:[
+        {x:"k-means, hierarchical clustering, when clustering breaks"},
+        {x:"PCA & dimensionality reduction — geometry + when to use"},
+        {x:"Probability: Bayes, distributions, MLE vs MAP, expectation"},
+        {x:"Hypothesis testing, p-values, confidence intervals (for A/B questions)"},
+      ]},
+      {t:"Evaluation", items:[
+        {x:"Precision/recall/F1, ROC-AUC vs PR-AUC, when to prefer which"},
+        {x:"Class imbalance handling: resampling, weighting, threshold tuning"},
+        {x:"Calibration, confusion matrix reasoning, metric–objective alignment"},
+      ]},
+      {t:"Optimization", items:[
+        {x:"Gradient descent family: SGD, momentum, Adam/AdamW"},
+        {x:"Learning-rate schedules, warmup, why training diverges"},
+        {x:"Loss functions: cross-entropy, MSE, contrastive/triplet"},
+      ]},
+    ],
+    res:[{k:"The Hundred-Page ML Book",u:"https://themlbook.com/"},
+         {k:"Hands-On ML (Géron) notebooks",u:"https://github.com/ageron/handson-ml3"},
+         {k:"StatQuest (intuition)",u:"https://www.youtube.com/@statquest"}]
+  },
+  {
+    id:"dl-llm", no:"02", title:"Deep Learning, Transformers & LLMs",
+    sub:"Your repositioning core. Go deep enough to be asked follow-ups and still have answers.",
+    groups:[
+      {t:"Neural net foundations", items:[
+        {x:"Backprop by hand on a small graph; vanishing/exploding gradients"},
+        {x:"Activations, BatchNorm/LayerNorm, dropout, weight init"},
+        {x:"CNNs (you know these) — keep crisp for vision rounds"},
+        {x:"RNN/LSTM basics + why attention replaced them"},
+      ]},
+      {t:"Transformers (know cold)", items:[
+        {x:"Self-attention math: Q,K,V, scaling, softmax, multi-head"},
+        {x:"Positional encodings: sinusoidal vs RoPE vs ALiBi"},
+        {x:"Full transformer block; encoder vs decoder vs enc-dec"},
+        {x:"KV cache, why inference is memory-bound", },
+      ]},
+      {t:"LLM lifecycle", items:[
+        {x:"Tokenization (BPE), embeddings, context windows"},
+        {x:"Pretraining → SFT → preference tuning (RLHF / DPO) at a high level"},
+        {x:"Parameter-efficient fine-tuning: LoRA / QLoRA, adapters"},
+        {x:"Quantization (int8/4-bit), distillation — the latency/cost levers"},
+        {x:"Decoding: greedy, beam, temperature, top-k/top-p"},
+        {x:"Evaluation & hallucination: benchmarks, LLM-as-judge, failure modes"},
+      ]},
+      {t:"Retrieval & embeddings (your edge)", items:[
+        {x:"Embeddings + similarity; ANN indexes: HNSW, IVF (you use Qdrant/Faiss)"},
+        {x:"RAG end to end: chunking, retrieval, reranking, context assembly"},
+        {x:"VLMs / CLIP-style contrastive training (you built on this)"},
+      ]},
+    ],
+    res:[{k:"Karpathy — Zero to Hero (build GPT)",u:"https://karpathy.ai/zero-to-hero.html"},
+         {k:"Jay Alammar — Illustrated Transformer",u:"https://jalammar.github.io/illustrated-transformer/"},
+         {k:"Raschka — Build an LLM from Scratch",u:"https://github.com/rasbt/LLMs-from-scratch"},
+         {k:"Lilian Weng — blog (RLHF, agents, etc.)",u:"https://lilianweng.github.io/"},
+         {k:"Attention Is All You Need",u:"https://arxiv.org/abs/1706.03762"}]
+  },
+  {
+    id:"system-design", no:"03", title:"ML System Design",
+    sub:"The round that decides senior offers. Drill the framework until it's automatic, then practise designs.",
+    groups:[
+      {t:"The framework (memorise the spine)", items:[
+        {x:"Clarify: users, scale, constraints, latency/throughput budget"},
+        {x:"Frame as ML: objective, offline metrics, online/business metrics"},
+        {x:"Data: sources, labels, features, splits, leakage"},
+        {x:"Model: baseline first, then iterate; why this model"},
+        {x:"Serving: batch vs real-time, latency, batching, caching"},
+        {x:"Monitoring: drift, feedback loops, retraining, A/B testing"},
+      ]},
+      {t:"Classic designs to practise", items:[
+        {x:"Recommendation / feed ranking (two-tower retrieval + ranker)"},
+        {x:"Search / retrieval ranking system"},
+        {x:"Ad click-through-rate / fraud detection"},
+        {x:"Large-scale image classification or detection pipeline"},
+        {x:"ETA / demand forecasting (tabular + temporal)"},
+      ]},
+      {t:"GenAI designs (lead with these)", items:[
+        {x:"Design a RAG system (ingestion, index, retrieval, eval, guardrails)"},
+        {x:"LLM serving stack: throughput, KV-cache, batching, autoscaling, cost"},
+        {x:"Semantic-search / data-curation platform — your Scene Search, generalised"},
+        {x:"Agentic / tool-use system + how you'd evaluate it"},
+      ]},
+    ],
+    res:[{k:"Chip Huyen — ML Interviews Book (free)",u:"https://huyenchip.com/ml-interviews-book/"},
+         {k:"Designing ML Systems (Chip Huyen) — book",u:"https://huyenchip.com/"},
+         {k:"AI Engineering (Chip Huyen) — for GenAI systems",u:"https://huyenchip.com/"},
+         {k:"Stanford CS329S — ML Systems Design",u:"https://stanford-cs329s.github.io/"},
+         {k:"Evidently — ML system design cases",u:"https://www.evidentlyai.com/ml-system-design"},
+         {k:"Eugene Yan — applied ML write-ups",u:"https://eugeneyan.com/"}]
+  },
+  {
+    id:"coding", no:"04", title:"Coding & DSA",
+    sub:"Still gates most loops. Pattern-fluency over grinding volume; add ML-from-scratch for the ML-coding round.",
+    groups:[
+      {t:"Core patterns (NeetCode 150)", items:[
+        {x:"Arrays, hashing, two pointers, sliding window"},
+        {x:"Stacks, binary search, linked lists"},
+        {x:"Trees, tries, heaps / priority queues"},
+        {x:"Graphs: BFS/DFS, union-find, topological sort"},
+        {x:"Backtracking, intervals"},
+        {x:"Dynamic programming (1D & 2D)"},
+      ]},
+      {t:"ML coding round (from scratch)", items:[
+        {x:"Implement: linear/logistic regression + gradient descent"},
+        {x:"Implement: k-means, k-NN"},
+        {x:"Implement: a neural net forward+backward (numpy)"},
+        {x:"Implement: self-attention / a tiny transformer block"},
+        {x:"NumPy/pandas fluency for data-manipulation prompts"},
+      ]},
+    ],
+    res:[{k:"NeetCode 150 (roadmap + videos)",u:"https://neetcode.io/practice"},
+         {k:"LeetCode",u:"https://leetcode.com/"},
+         {k:"Deep-ML — ML coding problems",u:"https://www.deep-ml.com/"}]
+  },
+  {
+    id:"mlops", no:"05", title:"MLOps & Training Infrastructure",
+    sub:"Your home advantage — make it a weapon. Be ready to whiteboard the systems you've actually built.",
+    groups:[
+      {t:"Training at scale", items:[
+        {x:"Data/model/pipeline parallelism; DDP vs FSDP vs DeepSpeed"},
+        {x:"Mixed precision, gradient accumulation, checkpointing"},
+        {x:"Distributed orchestration with Ray (you built this) — explain tradeoffs"},
+        {x:"GPU utilization, idle-cost control, autoscaling to zero"},
+      ]},
+      {t:"Pipelines & serving", items:[
+        {x:"Training→deploy pipelines (Argo, Step Functions, SageMaker)"},
+        {x:"Model serving: batch vs online, latency, throughput, canary/rollback"},
+        {x:"Feature stores, data versioning, reproducibility"},
+        {x:"Observability: metrics, drift detection, alerting (OTel/Grafana)"},
+        {x:"CI/CD for ML, experiment tracking (ClearML/MLflow)"},
+      ]},
+    ],
+    res:[{k:"Designing ML Systems — infra chapters",u:"https://huyenchip.com/"},
+         {k:"Made With ML (MLOps course)",u:"https://madewithml.com/"},
+         {k:"Ray docs — distributed training",u:"https://docs.ray.io/"}]
+  },
+  {
+    id:"behavioral", no:"06", title:"Behavioral & Project Deep-Dives",
+    sub:"At senior level this is half the decision. Have stories ready, told tight, with numbers.",
+    groups:[
+      {t:"Project deep-dives (rehearse out loud)", items:[
+        {x:"Scene Search: problem, your decisions, the 97.5% result, tradeoffs"},
+        {x:"Monocular 3D detection: 55%→91% — what you actually changed and why"},
+        {x:"LiDAR auto-labelling (SAM + kNN, nuScenes) — design + impact"},
+        {x:"Ray training platform: what you owned, what you'd do differently"},
+      ]},
+      {t:"STAR stories to write (6–8)", items:[
+        {x:"A hard technical problem you debugged end to end"},
+        {x:"A time you influenced beyond your role / drove team-wide adoption"},
+        {x:"A disagreement or tradeoff call you navigated"},
+        {x:"A failure / what you learned"},
+        {x:"Mentoring or raising the bar for others"},
+        {x:"Why this company / why leaving JLR (tight, positive framing)"},
+      ]},
+      {t:"Logistics", items:[
+        {x:"Questions to ask each interviewer (team, roadmap, ownership)"},
+        {x:"Compensation & level expectations researched per company"},
+      ]},
+    ],
+    res:[{k:"STAR method primer",u:"https://www.themuse.com/advice/star-interview-method"},
+         {k:"applyingml — interview & career notes",u:"https://applyingml.com/"}]
+  },
+];
+
+/* ---------- RENDER ---------- */
+const store = {
+  get(k){ try{return localStorage.getItem(k)==="1"}catch(e){return !!MEM[k]} },
+  set(k,v){ try{localStorage.setItem(k,v?"1":"0")}catch(e){MEM[k]=v} }
+};
+const MEM = {};
+const $ = s=>document.querySelector(s);
+
+// schedule
+const weeksEl = $("#weeks");
+SCHEDULE.forEach((w,i)=>{
+  const id="sch-"+i;
+  const row=document.createElement("div"); row.className="week";
+  row.innerHTML=`<div class="wk">${w[0]}</div>
+    <div class="wc" style="display:flex;gap:11px;align-items:flex-start">
+      <span class="box" data-k="${id}" role="checkbox" tabindex="0" aria-label="${w[1]}"></span>
+      <div><h4>${w[1]}</h4><p>${w[2]}</p></div>
+    </div>`;
+  weeksEl.appendChild(row);
+});
+
+// tracks
+const tracksEl=$("#tracks"), jumpEl=$("#jumpNav");
+jumpEl.innerHTML=`<a href="#schedule">Schedule</a>`;
+TRACKS.forEach(tr=>{
+  jumpEl.insertAdjacentHTML("beforeend",`<a href="#${tr.id}">${tr.no} ${tr.title.split(" ")[0]}…</a>`);
+  const sec=document.createElement("section"); sec.id=tr.id;
+  let html=`<div class="sec-head"><span class="sec-no">${tr.no}</span><h3>${tr.title}</h3>
+    <span class="sec-meta" id="m-${tr.id}">0 / 0</span></div>
+    <div class="sec-sub">${tr.sub}</div>
+    <div class="track-bar"><i id="b-${tr.id}"></i></div>`;
+  tr.groups.forEach((g,gi)=>{
+    html+=`<div class="grp"><p class="grp-t">${g.t}</p><ul class="list">`;
+    g.items.forEach((it,ii)=>{
+      const id=`${tr.id}-${gi}-${ii}`;
+      html+=`<li class="item" data-row="${id}">
+        <span class="box" data-k="${id}" role="checkbox" tabindex="0" aria-label="${it.x}"></span>
+        <div class="body-c"><span class="txt" data-for="${id}">${it.x}</span></div></li>`;
+    });
+    html+=`</ul></div>`;
+  });
+  // per-track resources
+  html+=`<div class="res" style="margin-top:6px">Go-to: `+
+    tr.res.map(r=>`<a href="${r.u}" target="_blank" rel="noopener">${r.k}↗</a>`).join(" · ")+`</div>`;
+  sec.innerHTML=html;
+  tracksEl.appendChild(sec);
+});
+jumpEl.insertAdjacentHTML("beforeend",`<a href="#resources">Resources</a>`);
+
+// master resources
+const resGrid=$("#resGrid");
+TRACKS.forEach(tr=>{
+  const c=document.createElement("div"); c.className="rescard";
+  c.innerHTML=`<h4>${tr.no} · ${tr.title}</h4><ul>`+
+    tr.res.map(r=>`<li><span class="k"><a href="${r.u}" target="_blank" rel="noopener">${r.k}↗</a></span></li>`).join("")+
+    `</ul>`;
+  resGrid.appendChild(c);
+});
+
+/* ---------- STATE + PROGRESS ---------- */
+const boxes=[...document.querySelectorAll(".box")];
+function applyBox(b){
+  const on=store.get(b.dataset.k);
+  b.classList.toggle("on",on);
+  const li=b.closest("li.item"); if(li) li.classList.toggle("done",on);
+}
+function sectionStats(prefix){
+  const bs=boxes.filter(b=>b.dataset.k.startsWith(prefix));
+  const done=bs.filter(b=>store.get(b.dataset.k)).length;
+  return [done,bs.length];
+}
+function refresh(){
+  // per track
+  ["sch",...TRACKS.map(t=>t.id)].forEach(p=>{
+    const key=p==="sch"?"sch-":p+"-";
+    const [d,n]=sectionStats(key);
+    const id=p==="sch"?"schedule":p;
+    const m=document.getElementById("m-"+id); if(m) m.textContent=`${d} / ${n}`;
+    const bar=document.getElementById("b-"+id); if(bar) bar.style.width=(n?d/n*100:0)+"%";
+  });
+  // overall
+  const done=boxes.filter(b=>store.get(b.dataset.k)).length;
+  const pct=boxes.length?Math.round(done/boxes.length*100):0;
+  $("#ovBar").style.width=pct+"%"; $("#ovPct").textContent=pct+"%";
+}
+let toastT;
+function toast(){const t=$("#savedToast");t.classList.add("show");clearTimeout(toastT);
+  toastT=setTimeout(()=>t.classList.remove("show"),900);}
+function toggle(b){const v=!store.get(b.dataset.k);store.set(b.dataset.k,v);applyBox(b);refresh();toast();}
+
+boxes.forEach(b=>{
+  applyBox(b);
+  b.addEventListener("click",()=>toggle(b));
+  b.addEventListener("keydown",e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();toggle(b);}});
+});
+document.querySelectorAll(".txt[data-for]").forEach(t=>{
+  t.addEventListener("click",()=>{const b=document.querySelector('.box[data-k="'+t.dataset.for+'"]');if(b)toggle(b);});
+});
+$("#resetBtn").addEventListener("click",()=>{
+  if(!confirm("Clear all progress on this device?"))return;
+  boxes.forEach(b=>{store.set(b.dataset.k,false);applyBox(b);});refresh();
+});
+refresh();
+</script>
+</body>
+</html>
