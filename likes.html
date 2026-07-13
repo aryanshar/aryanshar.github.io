@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")||"tech"}catch(e){document.documentElement.dataset.theme="tech"}</script>
   <title>Likes — Aryan Sharma</title>
   <meta name="description" content="Things Aryan Sharma likes — books, tools, papers, music, and other keepers.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +21,9 @@
       <a href="writing.html">writing</a>
       <a href="projects.html">projects</a>
       <a href="likes.html" aria-current="page">likes</a>
+      <a href="assets/cv.pdf" target="_blank" rel="noopener">cv</a>
     </nav>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Switch theme">theme</button>
   </div>
 </header>
 
@@ -80,5 +83,6 @@
   document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
+<script src="assets/js/theme.js"></script>
 </body>
 </html>

@@ -61,3 +61,26 @@ Search the files for `EDIT` — there are three spots:
   avatar). Swap the `src` in `index.html` for a local image if you prefer.
 - Dark mode follows the visitor's system preference automatically.
 - Fonts load from Google Fonts (Space Grotesk / Newsreader / IBM Plex Mono).
+
+## Using your LinkedIn photo
+
+LinkedIn image links expire, so don't hotlink. Instead:
+1. On LinkedIn, open your profile → click your photo → save the image.
+2. Rename it `profile.jpg` and place it at `assets/img/profile.jpg`.
+3. Push. If the file is missing, the site automatically falls back to your GitHub avatar.
+
+## CV
+
+Your CV lives at `assets/cv.pdf` and is linked from the nav on every page and
+the hero links row. To update it, just replace that file with a new PDF of the
+same name — no code changes needed.
+
+## Theme toggle
+
+The site has two designs, switched by the button in the header:
+- **tech** (default) — dark, annotation/detection-box identity
+- **classic** — light, plain-blog style inspired by sakshamsharma.com
+
+The visitor's choice is saved in their browser (localStorage). To change the
+default for first-time visitors, edit the fallback value `"tech"` in the small
+inline script at the top of each HTML file and in `assets/js/theme.js`.

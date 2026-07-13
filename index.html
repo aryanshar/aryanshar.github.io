@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aryan Sharma — Computer Vision &amp; MLOps</title>
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")||"tech"}catch(e){document.documentElement.dataset.theme="tech"}</script>
+  <title>Aryan Sharma — Senior AI/ML Engineer</title>
   <meta name="description" content="Aryan Sharma's personal site — writing on computer vision, MLOps, and things worth sharing.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +21,9 @@
       <a href="writing.html">writing</a>
       <a href="projects.html">projects</a>
       <a href="likes.html">likes</a>
+      <a href="assets/cv.pdf" target="_blank" rel="noopener">cv</a>
     </nav>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Switch theme">theme</button>
   </div>
 </header>
 
@@ -29,22 +32,26 @@
   <section class="hero">
     <div class="bbox">
       <span class="tag">aryan_sharma&nbsp;·&nbsp;conf&nbsp;0.99</span>
-      <img src="https://github.com/aryanshar.png" alt="Portrait of Aryan Sharma">
+      <!-- Drop your LinkedIn photo at assets/img/profile.jpg — until then, your GitHub avatar shows as fallback -->
+      <img src="assets/img/profile.jpg" alt="Portrait of Aryan Sharma"
+           onerror="this.onerror=null; this.src='https://github.com/aryanshar.png'">
       <span class="corner" aria-hidden="true"></span>
     </div>
     <div>
       <h1>Aryan Sharma</h1>
-      <p class="role">ML Engineer @ JLR · Computer Vision · MLOps</p>
+      <p class="role">Senior AI/ML Engineer @ Jaguar Land Rover · Computer Vision · MLOps</p>
       <p class="bio">
-        I teach machines to see, and then I teach them to do it in production.
-        This is where I write about computer vision, the plumbing that keeps
-        models alive, and anything else I find worth keeping.
-        <!-- EDIT: replace with your own bio -->
+        Senior AI/ML Engineer at Jaguar Land Rover, working on 3D perception,
+        semantic scene search, and the MLOps infrastructure that keeps it all
+        running — Ray, EKS, and a lot of Argo. IIT Kanpur alum. I write here
+        about computer vision, distributed training, and the unglamorous work
+        of shipping models to production.
       </p>
       <div class="links">
         <a href="https://github.com/aryanshar" target="_blank" rel="noopener">github</a>
-        <a href="https://www.linkedin.com/in/YOUR-LINKEDIN" target="_blank" rel="noopener">linkedin</a> <!-- EDIT -->
-        <a href="mailto:you@example.com">email</a> <!-- EDIT -->
+        <a href="https://www.linkedin.com/in/aryansharma97" target="_blank" rel="noopener">linkedin</a>
+        <a href="mailto:aryan.sharma7636@gmail.com">email</a>
+        <a href="assets/cv.pdf" target="_blank" rel="noopener">cv ↓</a>
       </div>
     </div>
   </section>
@@ -83,5 +90,6 @@
   renderRepos({ featuredId: "featured-repos", noteId: "repo-note", featuredOnly: true });
 </script>
 
+<script src="assets/js/theme.js"></script>
 </body>
 </html>

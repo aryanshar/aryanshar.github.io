@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")||"tech"}catch(e){document.documentElement.dataset.theme="tech"}</script>
   <title>Projects — Aryan Sharma</title>
   <meta name="description" content="Open-source projects by Aryan Sharma, pulled live from GitHub.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +21,9 @@
       <a href="writing.html">writing</a>
       <a href="projects.html" aria-current="page">projects</a>
       <a href="likes.html">likes</a>
+      <a href="assets/cv.pdf" target="_blank" rel="noopener">cv</a>
     </nav>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Switch theme">theme</button>
   </div>
 </header>
 
@@ -63,5 +66,6 @@
   renderRepos({ featuredId: "featured-repos", gridId: "repo-grid", noteId: "repo-note" });
 </script>
 
+<script src="assets/js/theme.js"></script>
 </body>
 </html>
