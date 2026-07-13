@@ -1,186 +1,87 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Aryan Sharma — AI/ML Engineer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/styles.css">
-  </head>
-  <body>
-    <header class="hero">
-      <div class="container hero-inner">
-        <div class="hero-left">
-          <img class="avatar" src="/images/avatar.png" alt="Aryan Sharma">
-          <div class="hero-meta">
-            <h1>Aryan Sharma</h1>
-            <p class="tagline">Senior AI/ML Engineer — ML research, production ML, and MLOps</p>
-            <p class="links-muted"><a href="https://github.com/aryanshar" target="_blank">GitHub</a> · <a href="https://www.linkedin.com/in/aryansharma97/" target="_blank">LinkedIn</a> · <a href="/assets/resume.pdf">Resume</a></p>
-          </div>
-        </div>
-        <nav class="hero-cta">
-          <a class="btn-primary" href="#projects">See projects</a>
-          <a class="btn-ghost" href="#contact">Contact</a>
-        </nav>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aryan Sharma — Computer Vision &amp; MLOps</title>
+  <meta name="description" content="Aryan Sharma's personal site — writing on computer vision, MLOps, and things worth sharing.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">~/aryanshar<span class="cursor">▮</span></a>
+    <nav class="main" aria-label="Main">
+      <a href="index.html" aria-current="page">home</a>
+      <a href="writing.html">writing</a>
+      <a href="projects.html">projects</a>
+      <a href="likes.html">likes</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="bbox">
+      <span class="tag">aryan_sharma&nbsp;·&nbsp;conf&nbsp;0.99</span>
+      <img src="https://github.com/aryanshar.png" alt="Portrait of Aryan Sharma">
+      <span class="corner" aria-hidden="true"></span>
+    </div>
+    <div>
+      <h1>Aryan Sharma</h1>
+      <p class="role">ML Engineer @ JLR · Computer Vision · MLOps</p>
+      <p class="bio">
+        I teach machines to see, and then I teach them to do it in production.
+        This is where I write about computer vision, the plumbing that keeps
+        models alive, and anything else I find worth keeping.
+        <!-- EDIT: replace with your own bio -->
+      </p>
+      <div class="links">
+        <a href="https://github.com/aryanshar" target="_blank" rel="noopener">github</a>
+        <a href="https://www.linkedin.com/in/YOUR-LINKEDIN" target="_blank" rel="noopener">linkedin</a> <!-- EDIT -->
+        <a href="mailto:you@example.com">email</a> <!-- EDIT -->
       </div>
-    </header>
+    </div>
+  </section>
 
-    <main class="container">
-      <section id="projects">
-        <h2>Selected Projects</h2>
-        <div class="projects-controls">
-          <input id="proj-search" type="search" placeholder="Search projects (name, language, description)">
-          <div class="badge" id="proj-count">— projects</div>
-        </div>
-        <div id="projects-list" class="projects-grid">
-          <!-- Projects pulled from GitHub will be injected here -->
-          <div class="project placeholder">Loading projects…</div>
-        </div>
-      </section>
+  <section class="block">
+    <div class="section-head">
+      <h2>Recent writing</h2>
+      <a class="more" href="writing.html">all posts →</a>
+    </div>
+    <ul class="post-list" id="recent-posts"></ul>
+  </section>
 
-      <section id="blog">
-        <h2>Blog</h2>
-        <div class="posts-list">
-          <article class="post">
-            <h3><a href="/posts/2026-02-06-building-production-deep-learning-pipelines.html">Building production-ready deep learning pipelines</a></h3>
-            <p class="muted">February 6, 2026 · AI/ML</p>
-            <p>This post outlines practical steps for taking deep learning models from research to production: data versioning, training pipelines, model validation, monitoring, and serving strategies.</p>
-          </article>
-        </div>
-        <p><a href="/posts/">See all posts</a></p>
-      </section>
+  <section class="block">
+    <div class="section-head">
+      <h2>Featured projects</h2>
+      <a class="more" href="projects.html">all projects →</a>
+    </div>
+    <div class="repo-grid" id="featured-repos"></div>
+    <p class="repo-note" id="repo-note"></p>
+  </section>
 
-      <section id="skills">
-        <h2>Skills</h2>
-        <div class="skills">
-          <span class="skill">Machine Learning</span>
-          <span class="skill">MLOps</span>
-          <span class="skill">NLP</span>
-          <span class="skill">Distributed Training</span>
-          <span class="skill">Data Engineering</span>
-          <span class="skill">Experimentation</span>
-        </div>
-      </section>
+</main>
 
-      <section id="testimonials">
-        <h2>Testimonials (placeholders)</h2>
-        <div class="testimonials">
-          <div class="testimonial">“Placeholder — a collaborator or manager testimonial will appear here.”</div>
-          <div class="testimonial">“Placeholder — client feedback or a talk quote.”</div>
-        </div>
-      </section>
+<footer class="site">
+  <div class="wrap">
+    <span>© <span id="year"></span> Aryan Sharma</span>
+    <span><a href="https://github.com/aryanshar/aryanshar.github.io" target="_blank" rel="noopener">site source</a></span>
+  </div>
+</footer>
 
-      <section id="contact">
-        <h2>Contact & Newsletter</h2>
-        <p>Interested in working together? Send an email or subscribe for updates.</p>
-        <form id="contact-form">
-          <input type="email" id="contact-email" placeholder="Your email" style="padding:10px;border-radius:8px;border:1px solid rgba(30,142,89,0.06);width:40%">
-          <button id="subscribe" class="btn-primary" type="button">Subscribe</button>
-        </form>
-        <p style="margin-top:10px">Or email: <a href="mailto:aryan.sharma575@gmail.com">aryan.sharma575@gmail.com</a></p>
-      </section>
+<script src="assets/js/posts.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  renderPosts("recent-posts", { limit: 3 });
+  renderRepos({ featuredId: "featured-repos", noteId: "repo-note", featuredOnly: true });
+</script>
 
-      <section id="contact">
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:aryan.sharma575@gmail.com">aryan.sharma575@gmail.com</a></p>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="container">© Aryan Sharma</div>
-    </footer>
-    <script>
-    // Client-side GitHub projects fetch + search + modal
-    const GITHUB_USER = 'aryanshar';
-
-    let allRepos = [];
-
-    function renderProjects(repos){
-      const list = document.getElementById('projects-list');
-      if (!repos || repos.length === 0) {
-        list.innerHTML = '<div class="project placeholder">No public projects found.</div>';
-        document.getElementById('proj-count').textContent = '0 projects';
-        return;
-      }
-      document.getElementById('proj-count').textContent = `${repos.length} projects`;
-      list.innerHTML = repos.map(r => `
-        <button class="project" data-repo="${encodeURIComponent(r.full_name)}">
-          <h3>${r.name}</h3>
-          <p class="muted">${r.language || ''} · ★ ${r.stargazers_count}</p>
-          <p class="desc">${(r.description||'').slice(0,160)}</p>
-        </button>
-      `).join('');
-
-      // attach click handlers for modal
-      Array.from(list.querySelectorAll('.project')).forEach(el=> el.addEventListener('click', ()=> openRepoModal(el.dataset.repo)));
-    }
-
-    async function loadProjects(){
-      const list = document.getElementById('projects-list');
-      try {
-        const res = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=100`);
-        if (!res.ok) throw new Error('GitHub API error: '+res.status);
-        const repos = await res.json();
-        allRepos = repos.filter(r=>!r.fork).sort((a,b)=>b.stargazers_count - a.stargazers_count);
-        renderProjects(allRepos.slice(0,12));
-      } catch(err){
-        list.innerHTML = '<div class="project placeholder">Failed to load projects.</div>';
-        console.error(err);
-      }
-    }
-
-    function openRepoModal(fullName){
-      const repo = allRepos.find(r => r.full_name === decodeURIComponent(fullName));
-      const backdrop = document.getElementById('modal-backdrop');
-      const container = document.getElementById('modal-container');
-      if (!repo) return;
-      container.innerHTML = `
-        <div class="modal">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <h2>${repo.name}</h2>
-            <button class="close-btn" id="modal-close">✕</button>
-          </div>
-          <p class="meta">${repo.language || ''} · ★ ${repo.stargazers_count} · Updated ${new Date(repo.updated_at).toLocaleDateString()}</p>
-          <p>${repo.description || 'No description provided.'}</p>
-          <div class="actions">
-            <a class="btn-primary" href="${repo.html_url}" target="_blank">View on GitHub</a>
-            <a class="btn-ghost" href="${repo.html_url}/issues" target="_blank">Issues</a>
-          </div>
-        </div>
-      `;
-      backdrop.style.display = 'flex';
-      document.getElementById('modal-close').addEventListener('click', closeModal);
-      backdrop.addEventListener('click', (e)=>{ if (e.target===backdrop) closeModal(); });
-    }
-
-    function closeModal(){
-      const backdrop = document.getElementById('modal-backdrop');
-      backdrop.style.display = 'none';
-      document.getElementById('modal-container').innerHTML = '';
-    }
-
-    // Search
-    document.addEventListener('DOMContentLoaded', ()=>{
-      loadProjects();
-      const s = document.getElementById('proj-search');
-      s.addEventListener('input', (e)=>{
-        const q = e.target.value.toLowerCase().trim();
-        if (!q) return renderProjects(allRepos.slice(0,12));
-        const filtered = allRepos.filter(r => (`${r.name} ${r.description || ''} ${r.language || ''}`).toLowerCase().includes(q)).slice(0,20);
-        renderProjects(filtered);
-      });
-
-      // newsletter subscribe (client-side placeholder)
-      document.getElementById('subscribe').addEventListener('click', ()=>{
-        const email = document.getElementById('contact-email').value;
-        if (!email || !email.includes('@')){ alert('Please enter a valid email.'); return; }
-        localStorage.setItem('newsletter_email', email);
-        alert('Thanks — subscription saved locally (placeholder).');
-      });
-    });
-    </script>
-
-    <!-- modal backdrop -->
-    <div id="modal-backdrop" class="modal-backdrop"><div id="modal-container"></div></div>
-  </body>
+</body>
 </html>

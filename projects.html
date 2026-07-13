@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects — Aryan Sharma</title>
+  <meta name="description" content="Open-source projects by Aryan Sharma, pulled live from GitHub.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">~/aryanshar<span class="cursor">▮</span></a>
+    <nav class="main" aria-label="Main">
+      <a href="index.html">home</a>
+      <a href="writing.html">writing</a>
+      <a href="projects.html" aria-current="page">projects</a>
+      <a href="likes.html">likes</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="page-head">
+    <h1>Projects</h1>
+    <p class="lede">
+      Pulled live from <a href="https://github.com/aryanshar" target="_blank" rel="noopener">github.com/aryanshar</a>.
+      Featured work first, then everything else sorted by stars. Forks are hidden.
+    </p>
+  </div>
+
+  <section class="block">
+    <div class="section-head">
+      <h2>Featured</h2>
+    </div>
+    <div class="repo-grid" id="featured-repos"></div>
+  </section>
+
+  <section class="block">
+    <div class="section-head">
+      <h2>Everything else</h2>
+    </div>
+    <div class="repo-grid" id="repo-grid"></div>
+    <p class="repo-note" id="repo-note">Loading repositories from GitHub…</p>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span id="year"></span> Aryan Sharma</span>
+    <span><a href="https://github.com/aryanshar/aryanshar.github.io" target="_blank" rel="noopener">site source</a></span>
+  </div>
+</footer>
+
+<script src="assets/js/posts.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  renderRepos({ featuredId: "featured-repos", gridId: "repo-grid", noteId: "repo-note" });
+</script>
+
+</body>
+</html>

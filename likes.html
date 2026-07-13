@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Likes — Aryan Sharma</title>
+  <meta name="description" content="Things Aryan Sharma likes — books, tools, papers, music, and other keepers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">~/aryanshar<span class="cursor">▮</span></a>
+    <nav class="main" aria-label="Main">
+      <a href="index.html">home</a>
+      <a href="writing.html">writing</a>
+      <a href="projects.html">projects</a>
+      <a href="likes.html" aria-current="page">likes</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="page-head">
+    <h1>Likes</h1>
+    <p class="lede">
+      A running list of things I keep coming back to. No structure, no reviews —
+      if it's here, it earned it. Updated whenever something sticks.
+    </p>
+  </div>
+
+  <!-- EDIT: everything below is example content. Add, remove, and rename
+       groups freely — a group is just an <div class="likes-group"> with an
+       <h3> and a <ul>. -->
+
+  <div class="likes-group">
+    <h3>papers &amp; reading</h3>
+    <ul>
+      <li><a href="https://arxiv.org/abs/1506.02640" target="_blank" rel="noopener">You Only Look Once</a> — the paper that started a lot of my career, honestly.</li>
+      <li><a href="https://karpathy.github.io/2019/04/25/recipe/" target="_blank" rel="noopener">A Recipe for Training Neural Networks</a> — Karpathy. Re-read it every time training goes sideways.</li>
+      <li>Add your own…</li>
+    </ul>
+  </div>
+
+  <div class="likes-group">
+    <h3>tools</h3>
+    <ul>
+      <li>Something you can't work without…</li>
+      <li>Another one…</li>
+    </ul>
+  </div>
+
+  <div class="likes-group">
+    <h3>music</h3>
+    <ul>
+      <li>An album on repeat…</li>
+    </ul>
+  </div>
+
+  <div class="likes-group">
+    <h3>misc</h3>
+    <ul>
+      <li>A video, a place, a quote, a game — anything goes here.</li>
+    </ul>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span id="year"></span> Aryan Sharma</span>
+    <span><a href="https://github.com/aryanshar/aryanshar.github.io" target="_blank" rel="noopener">site source</a></span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
