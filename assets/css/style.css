@@ -1,35 +1,39 @@
 /* ==========================================================================
-   aryanshar.github.io — design tokens
-   Palette: cool paper, ink navy, annotation green, label magenta
-   Type:    Space Grotesk (display) / Newsreader (body) / IBM Plex Mono (meta)
+   aryanshar.github.io — two themes, toggled via data-theme on <html>
+   "tech"    (default): dark, annotation-tool identity, mono metadata
+   "classic": light, Saksham-style plain blog — sans body, blue links
    ========================================================================== */
 
-:root {
-  --paper: #f6f7f6;
-  --panel: #ffffff;
-  --ink: #16211f;
-  --ink-soft: #4c5a56;
-  --line: #dde3e0;
-  --detect: #0c8f5f;        /* annotation-box green */
-  --detect-dim: #0c8f5f22;
-  --label: #b32d6f;         /* secondary tag magenta */
+/* ---------- theme: tech (default, always dark) ---------- */
+:root,
+html[data-theme="tech"] {
+  --paper: #101614;
+  --panel: #161d1b;
+  --ink: #e8edea;
+  --ink-soft: #9fb0aa;
+  --line: #263029;
+  --detect: #35c98d;        /* annotation-box green */
+  --detect-dim: #35c98d1f;
+  --label: #e26aa5;         /* secondary tag magenta */
   --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   --serif: "Newsreader", Georgia, "Times New Roman", serif;
   --sans: "Space Grotesk", system-ui, -apple-system, sans-serif;
   --maxw: 46rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #101614;
-    --panel: #161d1b;
-    --ink: #e8edea;
-    --ink-soft: #9fb0aa;
-    --line: #263029;
-    --detect: #35c98d;
-    --detect-dim: #35c98d1f;
-    --label: #e26aa5;
-  }
+/* ---------- theme: classic (always light, Saksham-style) ---------- */
+html[data-theme="classic"] {
+  --paper: #ffffff;
+  --panel: #f7f7f7;
+  --ink: #2b2b2b;
+  --ink-soft: #5f6368;
+  --line: #e3e3e3;
+  --detect: #1a66a8;        /* classic blog-blue links */
+  --detect-dim: #1a66a815;
+  --label: #8a6d3b;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --serif: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+  --sans: "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -472,4 +476,71 @@ a:focus-visible, button:focus-visible {
   outline: 2px solid var(--detect);
   outline-offset: 3px;
   border-radius: 2px;
+}
+
+/* ==========================================================================
+   theme toggle button
+   ========================================================================== */
+
+.theme-toggle {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 0.25rem 0.6rem;
+  cursor: pointer;
+}
+
+.theme-toggle:hover { color: var(--ink); border-color: var(--detect); }
+
+/* ==========================================================================
+   classic theme — structural overrides (Saksham-style plain blog)
+   ========================================================================== */
+
+/* no blinking terminal cursor, plain brand */
+html[data-theme="classic"] .brand .cursor { display: none; }
+html[data-theme="classic"] .brand { font-weight: 700; }
+
+/* round photo instead of the detection bounding box */
+html[data-theme="classic"] .bbox::before,
+html[data-theme="classic"] .bbox::after,
+html[data-theme="classic"] .bbox .corner::before,
+html[data-theme="classic"] .bbox .corner::after,
+html[data-theme="classic"] .bbox .tag { display: none; }
+
+/* square photo (bounding-box brackets still hidden above) */
+html[data-theme="classic"] .bbox img {
+  border-radius: 3px;
+  border: 1px solid var(--line);
+}
+
+/* plain section headings, no ▸ marker */
+html[data-theme="classic"] .section-head h2::before { content: ""; }
+html[data-theme="classic"] .section-head h2 {
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+/* classic blue link-style post titles */
+html[data-theme="classic"] .post-list a.title {
+  color: var(--detect);
+  font-weight: 700;
+}
+html[data-theme="classic"] .post-list a.title:hover { text-decoration: underline; }
+
+/* solid subtle separators instead of dashed */
+html[data-theme="classic"] .post-list li { border-bottom-style: solid; }
+
+/* role line in plain gray, not accent green */
+html[data-theme="classic"] .hero .role { color: var(--ink-soft); font-weight: 600; }
+
+/* body copy slightly smaller / denser, like a classic blog */
+html[data-theme="classic"] body { font-size: 1rem; line-height: 1.6; }
+
+/* article links classic blue */
+html[data-theme="classic"] article.post a {
+  color: var(--detect);
+  text-decoration-color: currentColor;
 }
