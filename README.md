@@ -25,22 +25,40 @@ assets/
 
 ## How to publish a new article
 
-1. Copy `posts/hello-world.html` → `posts/my-new-post.html`
-2. Edit the title, meta line, and body between the `EDIT` comments.
-3. Open `assets/js/posts.js` and add an entry at the **top** of `POSTS`:
+Posts are **markdown files**. Two steps:
 
-```js
-{
-  title: "My new post",
-  slug: "my-new-post",          // must match the filename
-  date: "2026-08-01",
-  category: "computer-vision",
-  tags: ["yolo", "deployment"],
-  summary: "One or two sentences for the listing."
-}
-```
+1. Copy `posts/_TEMPLATE.md` to `posts/your-slug.md` and write your post.
+   The front-matter block at the top holds all the metadata:
 
-That's it — it appears on the home page and the writing page automatically.
+   ```
+   ---
+   title: Scaling Ray clusters without burning GPU budget
+   date: 2026-07-25
+   category: mlops
+   tags: ray, eks, cost
+   summary: One or two sentences shown in the listing.
+   ---
+
+   Your markdown starts here.
+   ```
+
+2. Add the slug to `POST_SLUGS` in `assets/js/posts.js`:
+
+   ```js
+   const POST_SLUGS = ["your-slug", "hello-world"];
+   ```
+
+That's it. Posts sort by date automatically (newest first) and appear on the
+home page and writing page. Each is served by `post.html?p=your-slug`.
+
+Standard markdown works: headings, **bold**, *italic*, `code`, fenced code
+blocks, lists, tables, blockquotes, images, and links.
+
+## How to edit the About page
+
+Edit `content/about.md` — plain markdown, no HTML. It renders at `about.html`.
+The short bio on the home page hero is separate; that one lives in
+`index.html` in the `<p class="bio">` tag.
 
 ## How to feature a project
 
@@ -84,3 +102,15 @@ The site has two designs, switched by the button in the header:
 The visitor's choice is saved in their browser (localStorage). To change the
 default for first-time visitors, edit the fallback value `"tech"` in the small
 inline script at the top of each HTML file and in `assets/js/theme.js`.
+
+## Local preview
+
+Because posts are fetched at runtime, opening `index.html` directly with
+`file://` won't load them. Run a local server instead:
+
+```bash
+python3 -m http.server 8000
+# then open http://localhost:8000
+```
+
+GitHub Pages serves over HTTP, so this only affects local testing.

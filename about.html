@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")||"tech"}catch(e){document.documentElement.dataset.theme="tech"}</script>
-  <title>Projects — Aryan Sharma</title>
-  <meta name="description" content="Open-source projects by Aryan Sharma, pulled live from GitHub.">
+  <title>About — Aryan Sharma</title>
+  <meta name="description" content="About Aryan Sharma — Senior AI/ML Engineer at Jaguar Land Rover, working on 3D perception and MLOps.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -19,8 +19,8 @@
     <nav class="main" aria-label="Main">
       <a href="index.html">home</a>
       <a href="writing.html">writing</a>
-      <a href="projects.html" aria-current="page">projects</a>
-      <a href="about.html">about</a>
+      <a href="projects.html">projects</a>
+      <a href="about.html" aria-current="page">about</a>
       <a href="likes.html">likes</a>
       <a href="assets/cv.pdf" target="_blank" rel="noopener">cv</a>
     </nav>
@@ -30,27 +30,12 @@
 
 <main class="wrap">
   <div class="page-head">
-    <h1>Projects</h1>
-    <p class="lede">
-      Pulled live from <a href="https://github.com/aryanshar" target="_blank" rel="noopener">github.com/aryanshar</a>.
-      Featured work first, then everything else sorted by stars. Forks are hidden.
-    </p>
+    <h1>About</h1>
   </div>
 
-  <section class="block">
-    <div class="section-head">
-      <h2>Featured</h2>
-    </div>
-    <div class="repo-grid" id="featured-repos"></div>
-  </section>
-
-  <section class="block">
-    <div class="section-head">
-      <h2>Everything else</h2>
-    </div>
-    <div class="repo-grid" id="repo-grid"></div>
-    <p class="repo-note" id="repo-note">Loading repositories from GitHub…</p>
-  </section>
+  <article class="post" id="about-body" style="padding-top:0">
+    <p>Loading…</p>
+  </article>
 </main>
 
 <footer class="site">
@@ -60,13 +45,20 @@
   </div>
 </footer>
 
-<script src="assets/js/posts.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+<script src="assets/js/md.js"></script>
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
-  renderRepos({ featuredId: "featured-repos", gridId: "repo-grid", noteId: "repo-note" });
+  (async function () {
+    const el = document.getElementById("about-body");
+    try {
+      const { body } = await loadMarkdown("content/about.md");
+      el.innerHTML = renderMarkdown(body);
+    } catch (e) {
+      el.innerHTML = `<p>Couldn't load the about text (${e.message}).</p>`;
+    }
+  })();
 </script>
-
 <script src="assets/js/theme.js"></script>
 </body>
 </html>
