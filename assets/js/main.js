@@ -6,30 +6,36 @@ function fmtDate(iso) {
   return d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
 }
 
-// ---------- post lists ----------
+// ---------- post lists (markdown-driven) ----------
 
 function postItem(post, base) {
   const li = document.createElement("li");
+  const tags = (post.tags || []).join(", ");
   li.innerHTML = `
-    <a class="title" href="${base}posts/${post.slug}.html">${post.title}</a>
+    <a class="title" href="${base}post.html?p=${encodeURIComponent(post.slug)}">${post.title || post.slug}</a>
     <div class="post-meta">
-      <span>${fmtDate(post.date)}</span>
-      <span class="cat">${post.category}</span>
-      <span>${post.tags.join(", ")}</span>
+      <span>${post.date ? fmtDate(post.date) : ""}</span>
+      ${post.category ? `<span class="cat">${post.category}</span>` : ""}
+      ${tags ? `<span>${tags}</span>` : ""}
     </div>
-    <p class="summary">${post.summary}</p>`;
+    ${post.summary ? `<p class="summary">${post.summary}</p>` : ""}`;
   return li;
 }
 
-function renderPosts(targetId, { limit = Infinity, base = "" } = {}) {
+async function renderPosts(targetId, { limit = Infinity, base = "" } = {}) {
   const el = document.getElementById(targetId);
   if (!el) return;
-  const posts = POSTS.slice(0, limit);
-  if (posts.length === 0) {
-    el.innerHTML = `<li><p class="summary">Nothing here yet — first post coming soon.</p></li>`;
-    return;
+  try {
+    const posts = (await loadAllPostMeta(base)).slice(0, limit);
+    if (!posts.length) {
+      el.innerHTML = `<li><p class="summary">Nothing here yet — first post coming soon.</p></li>`;
+      return;
+    }
+    el.innerHTML = "";
+    posts.forEach(p => el.appendChild(postItem(p, base)));
+  } catch (e) {
+    el.innerHTML = `<li><p class="summary">Couldn't load posts (${e.message}).</p></li>`;
   }
-  posts.forEach(p => el.appendChild(postItem(p, base)));
 }
 
 // ---------- GitHub repos ----------

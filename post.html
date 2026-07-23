@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script>try{document.documentElement.dataset.theme=localStorage.getItem("theme")||"tech"}catch(e){document.documentElement.dataset.theme="tech"}</script>
-  <title>Writing — Aryan Sharma</title>
-  <meta name="description" content="Technical articles by Aryan Sharma on computer vision, MLOps, and machine learning engineering.">
+  <title>Aryan Sharma</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -29,15 +28,15 @@
 </header>
 
 <main class="wrap">
-  <div class="page-head">
-    <h1>Writing</h1>
-    <p class="lede">
-      Technical articles — mostly computer vision and the unglamorous work of
-      shipping models. Written so that future-me can debug past-me.
-    </p>
-  </div>
+  <article class="post">
+    <h1 id="post-title">Loading…</h1>
+    <div class="post-meta" id="post-meta"></div>
+    <div id="post-body"></div>
+  </article>
 
-  <ul class="post-list" id="all-posts"></ul>
+  <div class="post-nav">
+    <a href="writing.html">← all posts</a>
+  </div>
 </main>
 
 <footer class="site">
@@ -53,9 +52,41 @@
 <script src="assets/js/main.js"></script>
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
-  renderPosts("all-posts");
-</script>
 
+  (async function () {
+    const slug = new URLSearchParams(location.search).get("p");
+    const titleEl = document.getElementById("post-title");
+    const metaEl = document.getElementById("post-meta");
+    const bodyEl = document.getElementById("post-body");
+
+    if (!slug || !/^[a-z0-9-]+$/i.test(slug)) {
+      titleEl.textContent = "Post not found";
+      bodyEl.innerHTML = '<p>No such article. <a href="writing.html">See all posts →</a></p>';
+      return;
+    }
+
+    try {
+      const { meta, body } = await loadMarkdown(`posts/${slug}.md`);
+      const title = meta.title || slug;
+      titleEl.textContent = title;
+      document.title = `${title} — Aryan Sharma`;
+      if (meta.summary) {
+        const d = document.createElement("meta");
+        d.name = "description"; d.content = meta.summary;
+        document.head.appendChild(d);
+      }
+      metaEl.innerHTML = [
+        meta.date ? `<span>${fmtDate(meta.date)}</span>` : "",
+        meta.category ? `<span class="cat">${meta.category}</span>` : "",
+        (meta.tags && meta.tags.length) ? `<span>${meta.tags.join(", ")}</span>` : ""
+      ].join("");
+      bodyEl.innerHTML = renderMarkdown(body);
+    } catch (e) {
+      titleEl.textContent = "Post not found";
+      bodyEl.innerHTML = `<p>Couldn't load this article (${e.message}). <a href="writing.html">See all posts →</a></p>`;
+    }
+  })();
+</script>
 <script src="assets/js/theme.js"></script>
 </body>
 </html>

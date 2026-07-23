@@ -432,6 +432,42 @@ article.post pre code {
 .post-nav a { color: var(--ink-soft); text-decoration: none; }
 .post-nav a:hover { color: var(--detect); }
 
+/* ---------- markdown-generated elements ---------- */
+
+article.post ul,
+article.post ol { padding-left: 1.4rem; }
+
+article.post li { margin-bottom: 0.4rem; }
+
+article.post hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 2rem 0;
+}
+
+article.post table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.4rem 0;
+  font-size: 0.95rem;
+}
+
+article.post th,
+article.post td {
+  border: 1px solid var(--line);
+  padding: 0.5rem 0.7rem;
+  text-align: left;
+}
+
+article.post th {
+  background: var(--panel);
+  font-family: var(--sans);
+  font-weight: 600;
+}
+
+article.post h1 + p,
+article.post h2 + p { margin-top: 0.6rem; }
+
 /* ---------- footer ---------- */
 
 footer.site {
